@@ -1,2 +1,2 @@
 # Catpedia
-Android app about cats for a job interview
+A cattastic Android app about our furry friends
