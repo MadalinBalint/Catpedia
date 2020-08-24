@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Catpedia</string>
+
+    <!-- Welcome screen -->
+    <string name="welcome_screen_btn_login">Log in</string>
+    <string name="login_user_email">User e-mail</string>
+    <string name="login_password">Password</string>
+</resources>
