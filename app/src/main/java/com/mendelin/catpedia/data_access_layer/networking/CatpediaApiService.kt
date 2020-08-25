@@ -6,10 +6,10 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface CatpediaRestApi {
+interface CatpediaApiService {
     @GET("v1/breeds")
-    fun getListOfCatBreeds(): Call<ArrayList<BreedInfoResponse>>
+    suspend fun getListOfCatBreeds(): List<BreedInfoResponse>
 
-    @GET("images/search?breed_ids={breedId}")
-    fun getBreedInfo(@Query("breedId") breedId: String): Call<BreedImageResponse>
+    @GET("v1/images/search")
+    suspend fun getBreedImage(@Query("breed_id") breedId: String): MutableList<BreedImageResponse>
 }
