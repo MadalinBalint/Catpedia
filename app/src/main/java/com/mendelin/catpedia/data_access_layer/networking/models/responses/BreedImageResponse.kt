@@ -1,12 +1,17 @@
 package com.mendelin.catpedia.data_access_layer.networking.models.responses
 
+import android.os.Parcelable
 import androidx.annotation.Keep
+import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Keep
-class BreedImageResponse {
-    val breeds: List<BreedInfoResponse>? = null
-    val id: String? = null
-    val url: String? = null
-    val width: Int? = null
-    val height: Int? = null
+@JsonClass(generateAdapter = true)
+data class BreedImageResponse(
+    val id: String,
+    val url: String,
+    val width: Int,
+    val height: Int
+) : Parcelable {
 }
