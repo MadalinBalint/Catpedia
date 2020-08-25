@@ -4,7 +4,7 @@ import androidx.annotation.Keep
 
 @Keep
 class BreedImageResponse {
-    val breeds: List<BreedImageResponse>? = null
+    val breeds: List<BreedInfoResponse>? = null
     val id: String? = null
     val url: String? = null
     val width: Int? = null
