@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">Catpedia</string>
 
+    <!-- Alert box -->
+    <string name="alert_warning">Warning</string>
+    <string name="alert_error">Error</string>
+    <string name="alert_ok">OK</string>
+    <string name="alert_cancel">Cancel</string>
+    <string name="alert_error_unknown">Unknown error</string>
+
     <!-- Welcome screen -->
     <string name="welcome_screen_btn_login">Log in</string>
     <string name="login_user_email">User e-mail</string>
     <string name="login_password">Password</string>
+
 </resources>
