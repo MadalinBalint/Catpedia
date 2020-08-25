@@ -8,8 +8,8 @@ import retrofit2.http.Query
 
 interface CatpediaRestApi {
     @GET("v1/breeds")
-    fun getListOfCatBreeds(): Call<ResponseObject<List<BreedInfoResponse>>>
+    fun getListOfCatBreeds(): Call<ArrayList<BreedInfoResponse>>
 
     @GET("images/search?breed_ids={breedId}")
-    fun getBreedInfo(@Query("breedId") breedId: String): Call<ResponseObject<BreedImageResponse>>
+    fun getBreedInfo(@Query("breedId") breedId: String): Call<BreedImageResponse>
 }

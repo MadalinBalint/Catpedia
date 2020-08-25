@@ -20,7 +20,7 @@ class CatpediaRepository {
         RetrofitService().createService(CatpediaRestApi::class.java)
 
     /* Home page */
-    fun getListOfCatBreeds(data: MutableLiveData<List<BreedInfoResponse>>, onError: RetrofitError?) {
+    fun getListOfCatBreeds(data: MutableLiveData<ArrayList<BreedInfoResponse>>, onError: RetrofitError?) {
         val call = RetrofitCall(data, onError)
         catpediaApi.getListOfCatBreeds().enqueue(call)
     }

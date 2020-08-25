@@ -9,21 +9,16 @@ import timber.log.Timber
 typealias RetrofitError = (String?) -> Unit
 typealias RetrofitSuccess = () -> Unit
 
-class RetrofitCall<T>(val data: MutableLiveData<T>?, val onError: RetrofitError? = null, val onSuccess: RetrofitSuccess? = null) : Callback<ResponseObject<T>> {
-    override fun onFailure(call: Call<ResponseObject<T>>, t: Throwable) {
+class RetrofitCall<T>(val data: MutableLiveData<T>?, val onError: RetrofitError? = null, val onSuccess: RetrofitSuccess? = null) : Callback<T> {
+    override fun onFailure(call: Call<T>, t: Throwable) {
         onError?.invoke(t.localizedMessage)
         data?.value = null
     }
 
-    override fun onResponse(call: Call<ResponseObject<T>>, response: Response<ResponseObject<T>>) {
+    override fun onResponse(call: Call<T>, response: Response<T>) {
         if (response.isSuccessful) {
-            if (response.body()?.status == true) {
-                onSuccess?.invoke()
-                data?.value = response.body()?.data
-            } else {
-                onError?.invoke(response.body()?.message)
-                data?.value = null
-            }
+            onSuccess?.invoke()
+            data?.value = response.body()
         } else {
             onError?.invoke(response.message())
             data?.value = null
