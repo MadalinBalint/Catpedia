@@ -1,6 +1,7 @@
 package com.mendelin.catpedia.presentation_layer.fragments.breeds_list.business_logic
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.ListAdapter
@@ -28,24 +29,19 @@ class BreedsAdapter(val breeds: ArrayList<BreedInfoResponse>,
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            /*recyclerBreeds.visibility = View.VISIBLE
-                        progressBreedsList.visibility = View.GONE*/
                             resource.data?.let { images ->
                                 if (images.size == 1) {
                                     breed.image = images[0]
                                     holder.bind(breed)
+                                    holder.binding.progressBreedImage.visibility = View.GONE
                                 }
                             }
                         }
                         Status.ERROR -> {
-                            /*recyclerBreeds.visibility = View.VISIBLE
-                        progressBreedsList.visibility = View.GONE
-                        showErrorAlert(requireContext(), it.message
-                            ?: getString(R.string.alert_error_unknown))*/
+                            holder.binding.progressBreedImage.visibility = View.GONE
                         }
                         Status.LOADING -> {
-                            /*progressBreedsList.visibility = View.VISIBLE
-                        recyclerBreeds.visibility = View.GONE*/
+                            holder.binding.progressBreedImage.visibility = View.VISIBLE
                         }
                     }
                 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data class=".ItemBreedInfoBinding">
+
         <variable
             name="property"
             type="com.mendelin.catpedia.data_access_layer.networking.models.responses.BreedInfoResponse" />
@@ -25,12 +26,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imgBreed"
+            <FrameLayout
                 android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:adjustViewBounds="true"
-                app:imageUrl="@{property.image.url}"/>
+                android:layout_height="128dp">
+
+                <ImageView
+                    android:id="@+id/imgBreed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    app:imageUrl="@{property.image.url}" />
+
+                <!-- Progress -->
+                <ProgressBar
+                    android:id="@+id/progressBreedImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="invisible" />
+
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -49,9 +64,9 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/montserrat_500_medium"
                     android:includeFontPadding="false"
+                    android:text="@{property.name}"
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
-                    android:text="@{property.name}"
                     tools:text="Abyssinian" />
 
                 <TextView
@@ -65,9 +80,9 @@
                     android:fontFamily="@font/montserrat_400_regular"
                     android:includeFontPadding="false"
                     android:maxLines="4"
+                    android:text="@{property.description}"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
-                    android:text="@{property.description}"
                     tools:text="The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals." />
 
             </LinearLayout>
