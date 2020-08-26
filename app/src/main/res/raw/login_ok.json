@@ -1,0 +1,9 @@
+{
+  "status": true,
+  "message": null,
+  "data": {
+    "user_name": "",
+    "user_email": "",
+    "auth_token": ""
+  }
+}
