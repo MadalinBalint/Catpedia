@@ -3,7 +3,9 @@ package com.mendelin.catpedia.presentation_layer.activities.welcome_screen.view
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.common.ResourceUtils
@@ -13,6 +15,7 @@ import com.mendelin.catpedia.presentation_layer.activities.BaseActivity
 import com.mendelin.catpedia.presentation_layer.activities.main_screen.MainActivity
 import com.mendelin.catpedia.presentation_layer.activities.welcome_screen.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_welcome_screen.*
+
 
 class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
     companion object {
@@ -38,6 +41,14 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
             }, SPLASH_TIME_OUT)
         } else
             txtAppDescription.visibility = View.GONE
+
+        /* Pressing Enter/Done on soft keyboard triggers the Login button */
+        editUserPassword.setOnEditorActionListener { _, actionId, event ->
+            if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                btnLogin.performClick()
+            }
+            false
+        }
 
         btnLogin.setOnClickListener {
             loginUser()
