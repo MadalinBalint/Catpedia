@@ -1,16 +1,22 @@
 <resources>
     <string name="app_name">Catpedia</string>
+    <string name="app_description">A cattastisc app about our furry friends</string>
 
     <!-- Alert box -->
-    <string name="alert_warning">Warning</string>
     <string name="alert_error">Error</string>
     <string name="alert_ok">OK</string>
-    <string name="alert_cancel">Cancel</string>
     <string name="alert_error_unknown">Unknown error</string>
 
     <!-- Welcome screen -->
     <string name="welcome_screen_btn_login">Log in</string>
-    <string name="login_user_email">User e-mail</string>
+    <string name="login_user_name">User name</string>
     <string name="login_password">Password</string>
+
+    <!-- Breed informations -->
+    <string name="breed_info_name">Name</string>
+    <string name="breed_info_description">Description</string>
+    <string name="breed_info_country">Country</string>
+    <string name="breed_info_temperament">Temperament</string>
+    <string name="breed_info_wikipedia">Wikipedia link</string>
 
 </resources>

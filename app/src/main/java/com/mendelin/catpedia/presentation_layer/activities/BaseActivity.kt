@@ -1,8 +1,6 @@
 package com.mendelin.catpedia.presentation_layer.activities
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -44,14 +42,5 @@ abstract class BaseActivity(private val layoutId: Int) : AppCompatActivity() {
             inputManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
             inputManager.hideSoftInputFromInputMethod(currentFocus!!.windowToken, 0)
         }
-    }
-
-    fun closeActivity(key: String? = null, value: String? = null) {
-        val intentLogin = Intent()
-        if (!key.isNullOrEmpty() && !value.isNullOrEmpty()) {
-            intentLogin.putExtra(key, value)
-        }
-        setResult(Activity.RESULT_OK, intentLogin)
-        finish()
     }
 }

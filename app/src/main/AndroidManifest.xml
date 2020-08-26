@@ -28,7 +28,7 @@
             android:required="false" />
 
         <activity
-            android:name=".presentation_layer.activities.WelcomeScreenActivity"
+            android:name=".presentation_layer.activities.welcome_screen.view.WelcomeScreenActivity"
             android:configChanges="locale|orientation"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
