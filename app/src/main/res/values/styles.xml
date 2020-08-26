@@ -43,7 +43,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@android:color/white</item>
-        <item name="android:theme">@style/AppTheme.AppBarOverlay.BlackBackButton</item>
+        <item name="android:theme">@style/AppTheme.PopupOverlay</item>
         <item name="elevation">0dp</item>
     </style>
 
@@ -54,7 +54,7 @@
         <item name="android:background">@android:color/white</item>
         <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
         <item name="fontFamily">@font/montserrat_500_medium</item>
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="titleTextColor">@android:color/black</item>
     </style>
 

@@ -10,8 +10,8 @@ import com.mendelin.catpedia.common.ResourceUtils
 import com.mendelin.catpedia.common.Status
 import com.mendelin.catpedia.data_access_layer.preferences.UserPreferences
 import com.mendelin.catpedia.presentation_layer.activities.BaseActivity
-import com.mendelin.catpedia.presentation_layer.activities.MainActivity
-import com.mendelin.catpedia.presentation_layer.activities.welcome_screen.bussiness_logic.viewmodel.LoginViewModel
+import com.mendelin.catpedia.presentation_layer.activities.main_screen.MainActivity
+import com.mendelin.catpedia.presentation_layer.activities.welcome_screen.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_welcome_screen.*
 
 class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {

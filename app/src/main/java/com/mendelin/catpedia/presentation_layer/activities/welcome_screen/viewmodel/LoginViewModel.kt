@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.presentation_layer.activities.welcome_screen.bussiness_logic.viewmodel
+package com.mendelin.catpedia.presentation_layer.activities.welcome_screen.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
