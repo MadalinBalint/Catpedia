@@ -2,8 +2,6 @@ package com.mendelin.catpedia.presentation_layer.activities.main_screen
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.mendelin.catpedia.R

@@ -24,7 +24,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="96dp"
                 android:editTextColor="@android:color/darker_gray"
-                android:queryHint="Search"
+                android:queryHint="Search by country name"
+                app:iconifiedByDefault="true"
+                app:defaultQueryHint="Search by country name"
                 android:textColorHint="@android:color/black" />
 
             <Button
