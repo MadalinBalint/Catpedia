@@ -14,17 +14,19 @@ import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.view.Breed
 import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.viewmodel.BreedsViewModel
 
 
-class BreedsAdapter(val breeds: ArrayList<BreedInfoResponse>,
-                    val viewModel: BreedsViewModel,
+class BreedsAdapter(val viewModel: BreedsViewModel,
                     val owner: LifecycleOwner,
                     val navController: NavController) : ListAdapter<BreedInfoResponse, BreedInfoResponseViewHolder>(DiffCallback) {
+
+    val originalList: ArrayList<BreedInfoResponse> = arrayListOf()
+    val breedsList: ArrayList<BreedInfoResponse> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreedInfoResponseViewHolder {
         return BreedInfoResponseViewHolder(ItemBreedInfoBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: BreedInfoResponseViewHolder, position: Int) {
-        val breed = breeds[position]
+        val breed = breedsList[position]
         holder.bind(breed)
 
         if (breed.image == null) {
@@ -63,11 +65,42 @@ class BreedsAdapter(val breeds: ArrayList<BreedInfoResponse>,
         }
     }
 
-    fun addBreeds(breeds: List<BreedInfoResponse>) {
-        this.breeds.apply {
+    fun setOriginalList(list: List<BreedInfoResponse>) {
+        originalList.clear()
+        originalList.addAll(list)
+
+        this.breedsList.apply {
+            clear()
+            addAll(list)
+        }
+
+        submitList(originalList)
+    }
+
+    fun setFilteredList(breeds: List<BreedInfoResponse>) {
+        this.breedsList.apply {
             clear()
             addAll(breeds)
-            submitList(breeds)
+        }
+
+        submitList(breeds)
+    }
+
+    fun filterBreedsList(query: String) {
+        if (query.isEmpty()) {
+            breedsList.apply {
+                clear()
+                addAll(originalList)
+            }
+            submitList(originalList)
+        } else {
+            val filteredList = originalList.filter { it.origin?.toLowerCase() == query.toLowerCase() || it.origin?.toLowerCase()?.startsWith(query.toLowerCase()) == true }
+            breedsList.clear()
+            if (filteredList.isNotEmpty()) {
+                breedsList.addAll(filteredList)
+                submitList(filteredList)
+            } else
+                submitList(arrayListOf())
         }
     }
 }

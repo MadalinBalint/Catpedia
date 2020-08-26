@@ -15,6 +15,12 @@ class BreedInfoFragment : BaseFragment(R.layout.fragment_breed_info) {
 
     private val args: BreedInfoFragmentArgs by navArgs()
 
+    override fun onResume() {
+        super.onResume()
+
+        toolbarOff()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -2,6 +2,7 @@ package com.mendelin.catpedia.presentation_layer.fragments.breeds_list.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,15 +20,40 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
     private lateinit var viewModel: BreedsViewModel
     private lateinit var breedAdapter: BreedsAdapter
+    private lateinit var searchView: SearchView
+
+    val breedListOriginal: ArrayList<BreedInfoResponse> = arrayListOf()
+
+    override fun onResume() {
+        super.onResume()
+
+        toolbarOn()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        searchView = activity?.findViewById(R.id.searchView)!!
+
+        searchView.visibility = View.GONE
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                filter(query?.trim() ?: "")
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) showList(breedListOriginal)
+                return false
+            }
+        })
 
         /* Setup view model */
         viewModel = ViewModelProvider(this).get(BreedsViewModel::class.java)
 
         /* Setup UI */
-        breedAdapter = BreedsAdapter(arrayListOf(), viewModel, viewLifecycleOwner, findNavController())
+        breedAdapter = BreedsAdapter(viewModel, viewLifecycleOwner, findNavController())
         recyclerBreeds.apply {
             adapter = breedAdapter
             layoutManager = LinearLayoutManager(context)
@@ -41,33 +67,69 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
     }
 
     private fun observeViewModel() {
-        viewModel.getBreedsList().observe(viewLifecycleOwner, {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        recyclerBreeds.visibility = View.VISIBLE
-                        progressBreedsList.visibility = View.GONE
-                        resource.data?.let { breeds -> retrieveList(breeds) }
-                    }
-                    Status.ERROR -> {
-                        recyclerBreeds.visibility = View.VISIBLE
-                        progressBreedsList.visibility = View.GONE
-                        ResourceUtils.showErrorAlert(requireContext(), it.message
-                            ?: getString(R.string.alert_error_unknown))
-                    }
-                    Status.LOADING -> {
-                        progressBreedsList.visibility = View.VISIBLE
-                        recyclerBreeds.visibility = View.GONE
+        if (breedListOriginal.isEmpty()) {
+            viewModel.getBreedsList().observe(viewLifecycleOwner, { list ->
+                list?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            recyclerBreeds.visibility = View.VISIBLE
+                            progressBreedsList.visibility = View.GONE
+                            searchView.visibility = View.VISIBLE
+                            resource.data?.let { breeds ->
+                                breedListOriginal.clear()
+                                breedListOriginal.addAll(breeds)
+
+                                showList(breedListOriginal)
+                            }
+                        }
+                        Status.ERROR -> {
+                            recyclerBreeds.visibility = View.VISIBLE
+                            progressBreedsList.visibility = View.GONE
+                            searchView.visibility = View.GONE
+                            ResourceUtils.showErrorAlert(requireContext(), list.message
+                                ?: getString(R.string.alert_error_unknown))
+                        }
+                        Status.LOADING -> {
+                            progressBreedsList.visibility = View.VISIBLE
+                            recyclerBreeds.visibility = View.GONE
+                            searchView.visibility = View.GONE
+                        }
                     }
                 }
-            }
-        })
+            })
+        } else {
+            searchView.visibility = View.VISIBLE
+            showList(breedListOriginal)
+        }
     }
 
-    private fun retrieveList(breeds: List<BreedInfoResponse>) {
+    private fun showList(breeds: List<BreedInfoResponse>) {
+        val query = searchView.query.toString().trim()
+
+        if (query.isNotEmpty()) {
+            val filteredList = breeds.filter { it.origin?.toLowerCase() == query.toLowerCase() || it.origin?.toLowerCase()?.startsWith(query.toLowerCase()) == true }
+            filteredList(filteredList)
+        } else
+            originalList(breeds)
+    }
+
+    private fun originalList(original: List<BreedInfoResponse>) {
         breedAdapter.apply {
-            addBreeds(breeds)
+            setOriginalList(original)
             notifyDataSetChanged()
         }
+    }
+
+    private fun filteredList(filtered: List<BreedInfoResponse>) {
+        breedAdapter.apply {
+            setFilteredList(filtered)
+            notifyDataSetChanged()
+        }
+    }
+
+    private fun filter(query: String) {
+        recyclerBreeds.visibility = View.GONE
+        breedAdapter.filterBreedsList(query)
+        recyclerBreeds.visibility = View.VISIBLE
     }
 }

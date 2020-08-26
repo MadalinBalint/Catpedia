@@ -2,6 +2,8 @@ package com.mendelin.catpedia.presentation_layer.activities.main_screen
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.mendelin.catpedia.R
@@ -10,6 +12,7 @@ import com.mendelin.catpedia.presentation_layer.activities.BaseActivity
 import com.mendelin.catpedia.presentation_layer.activities.welcome_screen.view.WelcomeScreenActivity
 import com.mendelin.catpedia.presentation_layer.custom_views.AlertBox
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : BaseActivity(R.layout.activity_main) {
 
