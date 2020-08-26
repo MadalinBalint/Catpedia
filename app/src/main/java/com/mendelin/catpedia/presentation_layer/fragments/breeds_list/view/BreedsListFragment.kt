@@ -108,23 +108,31 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
         if (query.isNotEmpty()) {
             val filteredList = breeds.filter { it.origin?.toLowerCase() == query.toLowerCase() || it.origin?.toLowerCase()?.startsWith(query.toLowerCase()) == true }
-            filteredList(filteredList)
+
+            if (filteredList.isEmpty()) {
+                ResourceUtils.showErrorAlert(requireContext(), "The country ${query} doesn't exist in our list.")
+            } else
+                filteredList(filteredList)
         } else
             originalList(breeds)
     }
 
     private fun originalList(original: List<BreedInfoResponse>) {
+        recyclerBreeds.visibility = View.GONE
         breedAdapter.apply {
             setOriginalList(original)
             notifyDataSetChanged()
         }
+        recyclerBreeds.visibility = View.VISIBLE
     }
 
     private fun filteredList(filtered: List<BreedInfoResponse>) {
+        recyclerBreeds.visibility = View.GONE
         breedAdapter.apply {
             setFilteredList(filtered)
             notifyDataSetChanged()
         }
+        recyclerBreeds.visibility = View.VISIBLE
     }
 
     private fun filter(query: String) {

@@ -1,5 +1,6 @@
 package com.mendelin.catpedia.presentation_layer.fragments.breeds_list.business_logic
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.ListAdapter
 import com.mendelin.catpedia.ItemBreedInfoBinding
+import com.mendelin.catpedia.common.ResourceUtils
 import com.mendelin.catpedia.common.Status
 import com.mendelin.catpedia.data_access_layer.networking.models.responses.BreedInfoResponse
 import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.business_logic.adapter.DiffCallback
@@ -20,9 +22,11 @@ class BreedsAdapter(val viewModel: BreedsViewModel,
 
     val originalList: ArrayList<BreedInfoResponse> = arrayListOf()
     val breedsList: ArrayList<BreedInfoResponse> = arrayListOf()
+    lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreedInfoResponseViewHolder {
-        return BreedInfoResponseViewHolder(ItemBreedInfoBinding.inflate(LayoutInflater.from(parent.context)))
+        context = parent.context
+        return BreedInfoResponseViewHolder(ItemBreedInfoBinding.inflate(LayoutInflater.from(context)))
     }
 
     override fun onBindViewHolder(holder: BreedInfoResponseViewHolder, position: Int) {
@@ -69,7 +73,7 @@ class BreedsAdapter(val viewModel: BreedsViewModel,
         originalList.clear()
         originalList.addAll(list)
 
-        this.breedsList.apply {
+        breedsList.apply {
             clear()
             addAll(list)
         }
@@ -78,12 +82,12 @@ class BreedsAdapter(val viewModel: BreedsViewModel,
     }
 
     fun setFilteredList(breeds: List<BreedInfoResponse>) {
-        this.breedsList.apply {
+        breedsList.apply {
             clear()
             addAll(breeds)
         }
 
-        submitList(breeds)
+        submitList(breedsList)
     }
 
     fun filterBreedsList(query: String) {
@@ -95,12 +99,13 @@ class BreedsAdapter(val viewModel: BreedsViewModel,
             submitList(originalList)
         } else {
             val filteredList = originalList.filter { it.origin?.toLowerCase() == query.toLowerCase() || it.origin?.toLowerCase()?.startsWith(query.toLowerCase()) == true }
-            breedsList.clear()
+
             if (filteredList.isNotEmpty()) {
+                breedsList.clear()
                 breedsList.addAll(filteredList)
                 submitList(filteredList)
             } else
-                submitList(arrayListOf())
+                ResourceUtils.showErrorAlert(context, "The country ${query} doesn't exist in our list.")
         }
     }
 }
