@@ -9,5 +9,39 @@
         android:id="@+id/breedsFragment"
         android:name="com.mendelin.catpedia.presentation_layer.fragments.breeds_list.view.BreedsListFragment"
         android:label="fragment_breeds"
-        tools:layout="@layout/fragment_breeds_list" />
+        tools:layout="@layout/fragment_breeds_list">
+
+        <action
+            android:id="@+id/action_breed_info"
+            app:destination="@id/breedInfoFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/breedInfoFragment"
+        android:name="com.mendelin.catpedia.presentation_layer.fragments.breed_info.view.BreedInfoFragment"
+        android:label="BreedInfoFragment"
+        tools:layout="@layout/fragment_breed_info">
+
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="country"
+            app:argType="string" />
+        <argument
+            android:name="temperament"
+            app:argType="string" />
+        <argument
+            android:name="link"
+            app:argType="string" />
+
+    </fragment>
+
 </navigation>

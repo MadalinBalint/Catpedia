@@ -3,6 +3,7 @@ package com.mendelin.catpedia.presentation_layer.fragments.breeds_list.view
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.common.Status
@@ -25,7 +26,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
         viewModel = ViewModelProvider(this).get(BreedsViewModel::class.java)
 
         /* Setup UI */
-        breedAdapter = BreedsAdapter(arrayListOf(), viewModel, viewLifecycleOwner)
+        breedAdapter = BreedsAdapter(arrayListOf(), viewModel, viewLifecycleOwner, findNavController())
         recyclerBreeds.apply {
             adapter = breedAdapter
             layoutManager = LinearLayoutManager(context)
