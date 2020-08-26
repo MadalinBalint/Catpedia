@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
+import com.mendelin.catpedia.common.ResourceUtils
 import com.mendelin.catpedia.common.Status
 import com.mendelin.catpedia.data_access_layer.networking.models.responses.BreedInfoResponse
 import com.mendelin.catpedia.presentation_layer.fragments.BaseFragment
@@ -51,7 +52,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
                     Status.ERROR -> {
                         recyclerBreeds.visibility = View.VISIBLE
                         progressBreedsList.visibility = View.GONE
-                        showErrorAlert(requireContext(), it.message
+                        ResourceUtils.showErrorAlert(requireContext(), it.message
                             ?: getString(R.string.alert_error_unknown))
                     }
                     Status.LOADING -> {

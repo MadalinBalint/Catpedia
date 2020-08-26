@@ -39,12 +39,6 @@ abstract class BaseFragment(private val layoutId: Int) : Fragment() {
         }
     }
 
-    /* Toolbar config settings */
-    private fun logoToolbarVisibility(state: Boolean) {
-        val logo = requireActivity().findViewById<ImageView>(R.id.imgLogo)
-        logo.visibility = if (state) View.VISIBLE else View.GONE
-    }
-
     private fun backButtonVisibility(state: Boolean) {
         val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
 
@@ -59,13 +53,6 @@ abstract class BaseFragment(private val layoutId: Int) : Fragment() {
         toolbar.title = title
     }
 
-    fun getNavigationResult(key: String = "result") =
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(key)
-
-    fun setNavigationResult(result: String, key: String = "result") {
-        findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
-    }
-
     fun toolbarOff() {
         val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
         toolbar.visibility = View.GONE
@@ -74,20 +61,5 @@ abstract class BaseFragment(private val layoutId: Int) : Fragment() {
     fun toolbarOn() {
         val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
         toolbar.visibility = View.VISIBLE
-    }
-
-    fun showErrorAlert(context: Context, msg: String) {
-        val alert = AlertBox(context)
-
-        alert.setPositiveButtonListener(DialogInterface.OnClickListener { dialog, _ ->
-            dialog.dismiss()
-        })
-
-        alert.showAlert(
-            getString(R.string.alert_error),
-            msg,
-            getString(R.string.alert_ok),
-            null
-        )
     }
 }

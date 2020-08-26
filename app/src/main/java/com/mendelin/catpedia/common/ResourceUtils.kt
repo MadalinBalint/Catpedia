@@ -1,6 +1,8 @@
 package com.mendelin.catpedia.common
 
 import android.content.Context
+import com.mendelin.catpedia.R
+import com.mendelin.catpedia.presentation_layer.custom_views.AlertBox
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -33,5 +35,20 @@ object ResourceUtils {
 
         val file = File(filename)
         return file.readBytes()
+    }
+
+    fun showErrorAlert(context: Context, msg: String) {
+        val alert = AlertBox(context)
+
+        alert.setPositiveButtonListener { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.showAlert(
+            context.getString(R.string.alert_error),
+            msg,
+            context.getString(R.string.alert_ok),
+            null
+        )
     }
 }

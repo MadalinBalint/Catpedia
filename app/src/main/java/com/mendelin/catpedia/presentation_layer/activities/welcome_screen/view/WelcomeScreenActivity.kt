@@ -1,19 +1,17 @@
 package com.mendelin.catpedia.presentation_layer.activities.welcome_screen.view
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
+import com.mendelin.catpedia.common.ResourceUtils
 import com.mendelin.catpedia.common.Status
 import com.mendelin.catpedia.data_access_layer.preferences.UserPreferences
-import com.mendelin.catpedia.presentation_layer.MainActivity
 import com.mendelin.catpedia.presentation_layer.activities.BaseActivity
+import com.mendelin.catpedia.presentation_layer.activities.MainActivity
 import com.mendelin.catpedia.presentation_layer.activities.welcome_screen.bussiness_logic.viewmodel.LoginViewModel
-import com.mendelin.catpedia.presentation_layer.custom_views.AlertBox
 import kotlinx.android.synthetic.main.activity_welcome_screen.*
 
 class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
@@ -51,7 +49,7 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
         val password = editUserPassword.text.toString().trim()
 
         if (name.isEmpty() || password.isEmpty()) {
-            showErrorAlert(this, "User name and password fields shouldn't be empty.")
+            ResourceUtils.showErrorAlert(this, "User name and password fields shouldn't be empty.")
             return
         }
 
@@ -65,7 +63,7 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
                         loadMainScreen()
                     }
                     Status.ERROR -> {
-                        showErrorAlert(this, it.message
+                        ResourceUtils.showErrorAlert(this, it.message
                             ?: getString(R.string.alert_error_unknown))
                     }
                     Status.LOADING -> {
@@ -82,18 +80,5 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
         finish()
     }
 
-    private fun showErrorAlert(context: Context, msg: String) {
-        val alert = AlertBox(context)
 
-        alert.setPositiveButtonListener { dialog, _ ->
-            dialog.dismiss()
-        }
-
-        alert.showAlert(
-            getString(R.string.alert_error),
-            msg,
-            getString(R.string.alert_ok),
-            null
-        )
-    }
 }
