@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:id="@+id/scrollviewBreedInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        tools:context="com.mendelin.catpedia.presentation_layer.fragments.breed_info.view.BreedInfoFragment">
+
+        <LinearLayout
+            android:id="@+id/layoutPages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Breed image -->
+            <ImageView
+                android:id="@+id/imgCat"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_marginBottom="16dp"
+                android:adjustViewBounds="true"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <!-- Breed name -->
+            <TextView
+                style="@style/BreedInfoTitle"
+                android:text="@string/breed_info_name" />
+
+            <TextView
+                android:id="@+id/txtBreedName"
+                style="@style/BreedInfoContent"
+                tools:text="Abyssinian" />
+
+            <!-- Breed description -->
+            <TextView
+                style="@style/BreedInfoTitle"
+                android:text="@string/breed_info_description" />
+
+            <TextView
+                android:id="@+id/txtBreedDescription"
+                style="@style/BreedInfoContent"
+                tools:text="The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals." />
+
+            <!-- Breed country -->
+            <TextView
+                style="@style/BreedInfoTitle"
+                android:text="@string/breed_info_country" />
+
+            <TextView
+                android:id="@+id/txtBreedCountry"
+                style="@style/BreedInfoContent"
+                tools:text="EG (Egypt)" />
+
+            <!-- Breed temperament -->
+            <TextView
+                style="@style/BreedInfoTitle"
+                android:text="@string/breed_info_temperament" />
+
+            <TextView
+                android:id="@+id/txtBreedTemperament"
+                style="@style/BreedInfoContent"
+                tools:text="Active, Energetic, Independent, Intelligent, Gentle" />
+
+            <!-- Breed Wikipedia link -->
+            <TextView
+                style="@style/BreedInfoTitle"
+                android:text="@string/breed_info_wikipedia" />
+
+            <TextView
+                android:id="@+id/txtBreedWikipediaLink"
+                style="@style/BreedInfoContent"
+                android:layout_marginBottom="32dp"
+                android:autoLink="web"
+                android:textColorLink="@android:color/holo_blue_dark"
+                tools:text="https://en.wikipedia.org/wiki/Abyssinian_(cat)" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>
