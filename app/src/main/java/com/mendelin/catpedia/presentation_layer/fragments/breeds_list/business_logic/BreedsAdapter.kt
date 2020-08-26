@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import com.mendelin.catpedia.ItemBreedInfoBinding
 import com.mendelin.catpedia.common.ResourceUtils
@@ -65,7 +67,12 @@ class BreedsAdapter(val viewModel: BreedsViewModel,
                 String.format("%s (%s)", breed.country_code, breed.origin),
                 breed.temperament ?: "",
                 breed.wikipedia_url ?: "")
-            navController.navigate(action)
+
+            val extras = FragmentNavigatorExtras(
+                holder.binding.imgBreed to "catImage"
+            )
+
+            navController.navigate(action, extras)
         }
     }
 
