@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ItemBreedInfoBinding">
+        <variable
+            name="property"
+            type="com.mendelin.catpedia.data_access_layer.networking.models.responses.BreedInfoResponse" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/breedCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:clickable="true"
+        android:elevation="8dp"
+        android:focusable="true"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgBreed"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:adjustViewBounds="true"
+                app:imageUrl="@{property.image.url}"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtBreedName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/montserrat_500_medium"
+                    android:includeFontPadding="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:text="@{property.name}"
+                    tools:text="Abyssinian" />
+
+                <TextView
+                    android:id="@+id/txtBreedDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat_400_regular"
+                    android:includeFontPadding="false"
+                    android:maxLines="4"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:text="@{property.description}"
+                    tools:text="The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals." />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
