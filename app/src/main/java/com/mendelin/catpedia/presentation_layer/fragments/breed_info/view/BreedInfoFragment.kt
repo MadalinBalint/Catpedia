@@ -2,6 +2,7 @@ package com.mendelin.catpedia.presentation_layer.fragments.breed_info.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
@@ -24,6 +25,7 @@ class BreedInfoFragment : BaseFragment(R.layout.fragment_breed_info) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /* Load cat image */
         Glide.with(this)
             .applyDefaultRequestOptions(
                 RequestOptions()
@@ -34,10 +36,16 @@ class BreedInfoFragment : BaseFragment(R.layout.fragment_breed_info) {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imgCat)
 
+        /* Setup the rest of the data */
         txtBreedName.text = args.name
         txtBreedDescription.text = args.description
         txtBreedCountry.text = args.country
         txtBreedTemperament.text = args.temperament
         txtBreedWikipediaLink.text = args.link
+
+        /* Added a visible back button to navigate back to the cat breeds list */
+        btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }
