@@ -8,4 +8,7 @@ object ServerConfig {
     external fun getBaseUrl(): String
     external fun getApiHeader(): String
     external fun getApiKey(): String
+
+    external fun getMockedUserName(): String
+    external fun getMockedUserPassword(): String
 }

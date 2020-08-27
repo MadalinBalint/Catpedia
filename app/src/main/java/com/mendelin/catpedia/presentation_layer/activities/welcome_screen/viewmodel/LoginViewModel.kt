@@ -3,13 +3,14 @@ package com.mendelin.catpedia.presentation_layer.activities.welcome_screen.viewm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.mendelin.catpedia.common.Resource
+import com.mendelin.catpedia.data_access_layer.server.ServerConfig
 import com.mendelin.catpedia.presentation_layer.activities.welcome_screen.bussiness_logic.models.LoginResponse
 import com.mendelin.catpedia.presentation_layer.activities.welcome_screen.bussiness_logic.repository.LoginMockupRepository
 import kotlinx.coroutines.Dispatchers
 
 class LoginViewModel : ViewModel() {
     private fun loginUserMocked(username: String, password: String): LoginResponse {
-        if (username == "Pumpkin" && password == "catnip") {
+        if (username == ServerConfig.getMockedUserName() && password == ServerConfig.getMockedUserPassword()) {
             return LoginMockupRepository.dataLoginOk!!
         } else {
             throw Exception(LoginMockupRepository.dataLoginWrong?.message)

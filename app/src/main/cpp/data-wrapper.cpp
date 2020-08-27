@@ -8,7 +8,7 @@ Java_com_mendelin_catpedia_data_1access_1layer_server_ServerConfig_getBaseUrl(JN
 
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_mendelin_catpedia_data_1access_1layer_server_ServerConfig_getApiHeader(JNIEnv *env,
-                                                                             jobject obj) {
+                                                                                jobject obj) {
     return (*env).NewStringUTF("x-api-key");
 }
 
@@ -16,4 +16,16 @@ extern "C" JNIEXPORT jstring JNICALL
 Java_com_mendelin_catpedia_data_1access_1layer_server_ServerConfig_getApiKey(JNIEnv *env,
                                                                              jobject obj) {
     return (*env).NewStringUTF("af33a72b-4420-4190-a803-cab3b273c3db");
+}
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_mendelin_catpedia_data_1access_1layer_server_ServerConfig_getMockedUserName(JNIEnv *env,
+                                                                                     jobject obj) {
+    return (*env).NewStringUTF("Pumpkin");
+}
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_mendelin_catpedia_data_1access_1layer_server_ServerConfig_getMockedUserPassword(
+        JNIEnv *env, jobject obj) {
+    return (*env).NewStringUTF("catnip");
 }
