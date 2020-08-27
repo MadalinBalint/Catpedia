@@ -9,41 +9,18 @@ ext {
     lifecycle_version = "2.2.0"
 }
 
-def versionPropsFile = rootProject.file("version.properties")
-def versionBuild
-
 android {
     compileSdkVersion 30
 
     buildToolsVersion = '30.0.2'
 
-    /* Setting default value for versionBuild which is the last incremented value stored in the file */
-    if (versionPropsFile.canRead()) {
-        Properties versionProps = new Properties()
-        versionProps.load(new FileInputStream(versionPropsFile))
-        versionBuild = versionProps["VERSION_BUILD"].toInteger()
-    } else {
-        throw new FileNotFoundException("Could not read version.properties!")
-    }
-
-    /* Wrapping inside a method avoids auto incrementing on every gradle task run. Now it runs only when we build apk */
-    ext.autoIncrementBuildNumber = {
-        if (versionPropsFile.canRead()) {
-            Properties versionProps = new Properties()
-            versionProps.load(new FileInputStream(versionPropsFile))
-            versionBuild = versionProps["VERSION_BUILD"].toInteger() + 1
-            versionProps["VERSION_BUILD"] = versionBuild.toString()
-            versionProps.store(versionPropsFile.newWriter(), null)
-        } else {
-            throw new FileNotFoundException("Could not read version.properties!")
-        }
-    }
+    ndkVersion "21.0.6113669"
 
     defaultConfig {
         applicationId "com.mendelin.catpedia"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode versionBuild
+        versionCode 1
         versionName "0.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -77,13 +54,6 @@ android {
         }
     }
 
-    // Hook to check if the release/debug task is among the tasks to be executed.
-    gradle.taskGraph.whenReady { taskGraph ->
-        if (taskGraph.hasTask(assembleRelease)) { /* when run release task */
-            autoIncrementBuildNumber()
-        }
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -95,6 +65,12 @@ android {
 
     packagingOptions {
         exclude "META-INF/proguard/androidx-annotations.pro"
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+        }
     }
 }
 
