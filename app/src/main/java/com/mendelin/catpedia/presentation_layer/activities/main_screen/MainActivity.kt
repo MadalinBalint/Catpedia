@@ -29,7 +29,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         navController = Navigation.findNavController(this, R.id.navHostFragment)
 
         btnLogout.setOnClickListener {
-            val alert = AlertBox(this)
+            val alert = AlertBox()
 
             alert.setPositiveButtonListener { dialog, _ ->
                 UserPreferences.userIsLogged = false
@@ -48,7 +48,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 dialog.dismiss()
             }
 
-            alert.showAlert(
+            alert.showAlert(this,
                 getString(R.string.alert_warning),
                 "Are you sure you want to logout of Catpedia?",
                 getString(R.string.alert_ok),

@@ -4,23 +4,42 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.mendelin.catpedia.ItemBreedInfoBinding
 import com.mendelin.catpedia.common.ResourceUtils
 import com.mendelin.catpedia.common.Status
-import com.mendelin.catpedia.data_access_layer.networking.models.responses.BreedInfoResponse
-import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.business_logic.adapter.DiffCallback
+import com.mendelin.catpedia.data_access_layer.networking.models.BreedInfoResponse
 import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.view.BreedsListFragmentDirections
 import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.viewmodel.BreedsViewModel
 
+internal typealias OnImageClickListener = (image: ImageView, response: BreedInfoResponse) -> Unit
 
 class BreedsAdapter(val viewModel: BreedsViewModel,
                     val owner: LifecycleOwner,
-                    val navController: NavController) : ListAdapter<BreedInfoResponse, BreedInfoResponseViewHolder>(DiffCallback) {
+                    val navController: NavController) : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResponseViewHolder>(DiffCallbackBreedsAdapter) {
+
+    class BreedInfoResponseViewHolder(var binding: ItemBreedInfoBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(property: BreedInfoResponse) {
+            binding.property = property
+            binding.executePendingBindings()
+        }
+    }
+
+    companion object DiffCallbackBreedsAdapter : DiffUtil.ItemCallback<BreedInfoResponse>() {
+        override fun areItemsTheSame(oldItem: BreedInfoResponse, newItem: BreedInfoResponse): Boolean {
+            return oldItem.image == newItem.image
+        }
+
+        override fun areContentsTheSame(oldItem: BreedInfoResponse, newItem: BreedInfoResponse): Boolean {
+            return oldItem == newItem
+        }
+    }
 
     val originalList: ArrayList<BreedInfoResponse> = arrayListOf()
     val breedsList: ArrayList<BreedInfoResponse> = arrayListOf()

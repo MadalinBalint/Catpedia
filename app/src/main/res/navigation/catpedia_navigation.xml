@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/breedInfoFragment"
-        android:name="com.mendelin.catpedia.presentation_layer.fragments.breed_info.view.BreedInfoFragment"
+        android:name="com.mendelin.catpedia.presentation_layer.fragments.breed_info.BreedInfoFragment"
         android:label="BreedInfoFragment"
         tools:layout="@layout/fragment_breed_info">
 

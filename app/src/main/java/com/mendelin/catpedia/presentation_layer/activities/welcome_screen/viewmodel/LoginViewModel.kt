@@ -8,7 +8,7 @@ import com.mendelin.catpedia.presentation_layer.activities.welcome_screen.bussin
 import kotlinx.coroutines.Dispatchers
 
 class LoginViewModel : ViewModel() {
-    private suspend fun loginUserMocked(username: String, password: String): LoginResponse {
+    private fun loginUserMocked(username: String, password: String): LoginResponse {
         if (username == "Pumpkin" && password == "catnip") {
             return LoginMockupRepository.dataLoginOk!!
         } else {

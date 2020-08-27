@@ -26,25 +26,14 @@ object ResourceUtils {
         return outputStream.toString()
     }
 
-    fun getResourceId(context: Context, name: String, type: String): Int {
-        return context.resources.getIdentifier(name, type, context.packageName)
-    }
-
-    fun readLocalFile(filename: String?): ByteArray {
-        if (filename.isNullOrEmpty()) return ByteArray(0)
-
-        val file = File(filename)
-        return file.readBytes()
-    }
-
     fun showErrorAlert(context: Context, msg: String) {
-        val alert = AlertBox(context)
+        val alert = AlertBox()
 
         alert.setPositiveButtonListener { dialog, _ ->
             dialog.dismiss()
         }
 
-        alert.showAlert(
+        alert.showAlert(context,
             context.getString(R.string.alert_error),
             msg,
             context.getString(R.string.alert_ok),

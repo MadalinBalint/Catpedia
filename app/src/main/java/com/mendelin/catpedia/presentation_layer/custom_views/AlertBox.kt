@@ -5,7 +5,7 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-class AlertBox(val context: Context) : AppCompatActivity() {
+class AlertBox : AppCompatActivity() {
     private var listenerPositiveButton: DialogInterface.OnClickListener? = null
     private var listenerNegativeButton: DialogInterface.OnClickListener? = null
 
@@ -17,7 +17,7 @@ class AlertBox(val context: Context) : AppCompatActivity() {
         listenerNegativeButton = listener
     }
 
-    fun showAlert(title: String, message: String, btnPositive: String?, btnNegative: String?) {
+    fun showAlert(context: Context, title: String, message: String, btnPositive: String?, btnNegative: String?) {
         val alertDialogBuilder = AlertDialog.Builder(context)
 
         alertDialogBuilder.setTitle(title)

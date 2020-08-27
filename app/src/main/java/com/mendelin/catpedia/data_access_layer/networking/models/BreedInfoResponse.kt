@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.data_access_layer.networking.models.responses
+package com.mendelin.catpedia.data_access_layer.networking.models
 
 import android.os.Parcelable
 import androidx.annotation.Keep
@@ -47,6 +47,4 @@ data class BreedInfoResponse(
     val hypoallergenic: Int? = null,
 
     var image: BreedImageResponse? = null
-) : Parcelable {
-
-}
+) : Parcelable

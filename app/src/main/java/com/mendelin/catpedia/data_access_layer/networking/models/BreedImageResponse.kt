@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.data_access_layer.networking.models.responses
+package com.mendelin.catpedia.data_access_layer.networking.models
 
 import android.os.Parcelable
 import androidx.annotation.Keep
@@ -13,5 +13,4 @@ data class BreedImageResponse(
     val url: String,
     val width: Int,
     val height: Int
-) : Parcelable {
-}
+) : Parcelable

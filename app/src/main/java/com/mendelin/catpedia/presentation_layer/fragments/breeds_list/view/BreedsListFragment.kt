@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.common.ResourceUtils
 import com.mendelin.catpedia.common.Status
-import com.mendelin.catpedia.data_access_layer.networking.models.responses.BreedInfoResponse
+import com.mendelin.catpedia.data_access_layer.networking.models.BreedInfoResponse
 import com.mendelin.catpedia.presentation_layer.fragments.BaseFragment
 import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.business_logic.BreedsAdapter
 import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.business_logic.MarginItemDecorationVertical
