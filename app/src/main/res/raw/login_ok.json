@@ -1,9 +1,9 @@
 {
   "status": true,
-  "message": null,
+  "message": "Success",
   "data": {
-    "user_name": "",
-    "user_email": "",
-    "auth_token": ""
+    "user_name": "Pumpkin",
+    "user_email": "big_pumpkin@gmail.com",
+    "access_token": "f5af9f51-07e6-4332-8f1a-c0c11c1e3728"
   }
 }

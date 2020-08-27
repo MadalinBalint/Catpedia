@@ -12,7 +12,7 @@ object UserPreferences {
 
     const val USER_NAME = "USER_NAME"
     const val USER_EMAIL = "USER_EMAIL"
-    const val USER_AUTH_TOKEN = "USER_TOKEN"
+    const val USER_ACCESS_TOKEN = "USER_ACCESS_TOKEN"
 
     private var mSharedPreferences: SharedPreferences? = null
 
@@ -99,7 +99,7 @@ object UserPreferences {
         get() = read(USER_EMAIL, "") ?: ""
         set(value) = write(USER_EMAIL, value)
 
-    var userAuthToken: Int
-        get() = read(USER_AUTH_TOKEN, -1)
-        set(value) = write(USER_AUTH_TOKEN, value)
+    var userAccessToken: String
+        get() = read(USER_ACCESS_TOKEN, "") ?: ""
+        set(value) = write(USER_ACCESS_TOKEN, value)
 }

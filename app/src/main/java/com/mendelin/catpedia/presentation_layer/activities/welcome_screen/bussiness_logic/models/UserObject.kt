@@ -3,5 +3,5 @@ package com.mendelin.catpedia.presentation_layer.activities.welcome_screen.bussi
 data class UserObject (
     val user_name: String? = null,
     val user_email: String? = null,
-    val auth_token: String? = null,
+    val access_token: String? = null,
 )

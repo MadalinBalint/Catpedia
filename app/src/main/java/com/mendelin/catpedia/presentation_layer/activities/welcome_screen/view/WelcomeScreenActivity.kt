@@ -70,7 +70,11 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+                        val response = it.data
                         UserPreferences.userIsLogged = true
+                        UserPreferences.userName = response?.data?.user_name ?: ""
+                        UserPreferences.userEmail = response?.data?.user_email ?: ""
+                        UserPreferences.userAccessToken = response?.data?.access_token ?: ""
                         loadMainScreen()
                     }
                     Status.ERROR -> {

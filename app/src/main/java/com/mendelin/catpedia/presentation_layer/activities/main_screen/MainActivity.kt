@@ -34,6 +34,10 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
             alert.setPositiveButtonListener { dialog, _ ->
                 UserPreferences.userIsLogged = false
 
+                UserPreferences.userName = ""
+                UserPreferences.userEmail = ""
+                UserPreferences.userAccessToken = ""
+
                 val intent = Intent(this, WelcomeScreenActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
