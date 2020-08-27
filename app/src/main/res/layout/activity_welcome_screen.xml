@@ -6,92 +6,99 @@
     android:layout_height="match_parent"
     tools:context=".presentation_layer.activities.welcome_screen.view.WelcomeScreenActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:layout_gravity="center">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            app:srcCompat="@drawable/ic_logo" />
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/montserrat_700_bold"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            <ImageView
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                app:srcCompat="@drawable/ic_logo" />
 
-        <TextView
-            android:id="@+id/txtAppDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/montserrat_500_medium"
-            android:gravity="center"
-            android:text="@string/app_description"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_700_bold"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/txtUserName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="@font/montserrat_400_regular"
-            android:text="@string/welcome_screen_user_name"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txtAppDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/montserrat_500_medium"
+                android:gravity="center"
+                android:text="@string/app_description"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/editUserName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:imeOptions="actionNext"
-            android:inputType="text" />
+            <TextView
+                android:id="@+id/txtUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="32dp"
+                android:fontFamily="@font/montserrat_400_regular"
+                android:text="@string/welcome_screen_user_name"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/txtUserPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="@font/montserrat_400_regular"
-            android:text="@string/welcome_screen_password"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            <EditText
+                android:id="@+id/editUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:imeOptions="actionNext"
+                android:inputType="text" />
 
-        <EditText
-            android:id="@+id/editUserPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword" />
+            <TextView
+                android:id="@+id/txtUserPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="32dp"
+                android:fontFamily="@font/montserrat_400_regular"
+                android:text="@string/welcome_screen_password"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btnLogin"
-            style="@style/FlatButtonBlack"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/welcome_screen_btn_login" />
+            <EditText
+                android:id="@+id/editUserPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnLogin"
+                style="@style/FlatButtonBlack"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="32dp"
+                android:text="@string/welcome_screen_btn_login" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </FrameLayout>
