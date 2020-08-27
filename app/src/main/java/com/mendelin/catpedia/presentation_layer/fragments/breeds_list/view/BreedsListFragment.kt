@@ -1,7 +1,13 @@
 package com.mendelin.catpedia.presentation_layer.fragments.breeds_list.view
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +23,8 @@ import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.viewmodel.
 import kotlinx.android.synthetic.main.fragment_breeds_list.*
 
 class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
+
+    var internectBroadcastReceiver: BroadcastReceiver? = null
 
     private lateinit var viewModel: BreedsViewModel
     private lateinit var breedsAdapter: BreedsAdapter
@@ -84,8 +92,29 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
             addItemDecoration(MarginItemDecorationVertical(resources.getDimension(R.dimen.recyclerview_padding).toInt(), resources.getDimension(R.dimen.recyclerview_padding).toInt()))
         }
 
+        /* Broadcast receiver to fetch data when the internet connection is back */
+        if (internectBroadcastReceiver == null) {
+            internectBroadcastReceiver = object : BroadcastReceiver() {
+                override fun onReceive(context: Context?, intent: Intent) {
+                    observeViewModel()
+                }
+            }
+        }
+
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+        activity?.registerReceiver(internectBroadcastReceiver, intentFilter)
+
         /* Setup observers */
         observeViewModel()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        internectBroadcastReceiver?.let {
+            activity?.unregisterReceiver(it)
+        }
     }
 
     private fun observeViewModel() {
@@ -135,5 +164,14 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
                 viewModel.errorFilter.value = ""
             }
         })
+    }
+
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        if (connectivityManager != null) {
+            val activeNetworkInfo = connectivityManager?.activeNetworkInfo
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+        return false
     }
 }
