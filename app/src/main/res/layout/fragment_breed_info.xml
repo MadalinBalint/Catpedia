@@ -86,16 +86,20 @@
 
             <!-- Breed Wikipedia link -->
             <TextView
+                android:id="@+id/titleBreedWikipediaLink"
                 style="@style/BreedInfoTitle"
                 android:text="@string/breed_info_wikipedia" />
 
             <TextView
                 android:id="@+id/txtBreedWikipediaLink"
                 style="@style/BreedInfoContent"
-                android:layout_marginBottom="32dp"
                 android:autoLink="web"
                 android:textColorLink="@android:color/holo_blue_dark"
                 tools:text="https://en.wikipedia.org/wiki/Abyssinian_(cat)" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
 
         </LinearLayout>
 

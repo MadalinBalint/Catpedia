@@ -34,7 +34,13 @@ class BreedInfoFragment : BaseFragment(R.layout.fragment_breed_info) {
         txtBreedDescription.text = args.description
         txtBreedCountry.text = args.country
         txtBreedTemperament.text = args.temperament
-        txtBreedWikipediaLink.text = args.link
+
+        if (args.link.isNotEmpty()) {
+            txtBreedWikipediaLink.text = args.link
+        } else {
+            titleBreedWikipediaLink.visibility = View.GONE
+            txtBreedWikipediaLink.visibility = View.GONE
+        }
 
         btnBack.setOnClickListener {
             findNavController().navigateUp()
