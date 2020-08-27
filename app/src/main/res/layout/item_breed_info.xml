@@ -27,27 +27,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <FrameLayout
+            <!--Cat breed image -->
+            <ImageView
+                android:id="@+id/imgBreed"
                 android:layout_width="128dp"
-                android:layout_height="128dp">
-
-                <ImageView
-                    android:id="@+id/imgBreed"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    android:transitionName="catImage"
-                    app:imageUrl="@{property.image.url}" />
-
-                <!-- Progress -->
-                <ProgressBar
-                    android:id="@+id/progressBreedImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="invisible" />
-
-            </FrameLayout>
+                android:layout_height="128dp"
+                android:adjustViewBounds="true"
+                android:transitionName="catImage"
+                app:imageUrl="@{property.image.url}" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -56,6 +43,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <!-- Name -->
                 <TextView
                     android:id="@+id/txtBreedName"
                     android:layout_width="match_parent"
@@ -71,6 +59,7 @@
                     android:textSize="14sp"
                     tools:text="Abyssinian" />
 
+                <!-- Description -->
                 <TextView
                     android:id="@+id/txtBreedDescription"
                     android:layout_width="match_parent"

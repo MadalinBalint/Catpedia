@@ -11,7 +11,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class RetrofitService {
 
     companion object {
-        val moshi = Moshi.Builder()
+        val moshi: Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
 
