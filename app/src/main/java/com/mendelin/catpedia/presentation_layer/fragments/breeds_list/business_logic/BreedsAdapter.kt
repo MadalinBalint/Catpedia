@@ -54,7 +54,7 @@ class BreedsAdapter(val listener: OnImageLoaderListener?) : ListAdapter<BreedInf
                 breed.image?.url ?: "",
                 breed.name,
                 breed.description ?: "",
-                String.format("%s (%s)", breed.country_code, breed.origin),
+                String.format("%s (%s)", breed.origin, breed.country_code),
                 breed.temperament ?: "",
                 breed.wikipedia_url ?: "")
 
