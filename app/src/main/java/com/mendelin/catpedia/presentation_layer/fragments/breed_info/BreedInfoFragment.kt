@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -40,6 +41,11 @@ class BreedInfoFragment : BaseFragment(R.layout.fragment_breed_info) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val circularProgressDrawable = CircularProgressDrawable(requireContext())
+        circularProgressDrawable.strokeWidth = 6f
+        circularProgressDrawable.centerRadius = 50f
+        circularProgressDrawable.start()
+
         /* Load cat image */
         Glide.with(this)
             .applyDefaultRequestOptions(
@@ -48,6 +54,7 @@ class BreedInfoFragment : BaseFragment(R.layout.fragment_breed_info) {
                     .disallowHardwareConfig())
             .load(args.imageUrl)
             .optionalCenterCrop()
+            .placeholder(circularProgressDrawable)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imgCat)
 
