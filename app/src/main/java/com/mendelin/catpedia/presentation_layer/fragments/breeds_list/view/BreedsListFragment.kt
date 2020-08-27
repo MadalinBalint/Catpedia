@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.common.ResourceUtils
@@ -19,10 +18,10 @@ import kotlinx.android.synthetic.main.fragment_breeds_list.*
 class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
     private lateinit var viewModel: BreedsViewModel
-    private lateinit var breedAdapter: BreedsAdapter
+    private lateinit var breedsAdapter: BreedsAdapter
     private lateinit var searchView: SearchView
 
-    val breedListOriginal: ArrayList<BreedInfoResponse> = arrayListOf()
+    private val originalBreedList: ArrayList<BreedInfoResponse> = arrayListOf()
 
     override fun onResume() {
         super.onResume()
@@ -39,12 +38,14 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                filter(query?.trim() ?: "")
+                viewModel.query.value = query?.trim() ?: ""
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.isNullOrEmpty()) showList(breedListOriginal)
+                if (newText.isNullOrEmpty()) {
+                    viewModel.query.value = ""
+                }
                 return false
             }
         })
@@ -53,9 +54,9 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
         viewModel = ViewModelProvider(this).get(BreedsViewModel::class.java)
 
         /* Setup UI */
-        breedAdapter = BreedsAdapter(viewModel, viewLifecycleOwner, findNavController())
+        breedsAdapter = BreedsAdapter(viewModel, viewLifecycleOwner)
         recyclerBreeds.apply {
-            adapter = breedAdapter
+            adapter = breedsAdapter
             layoutManager = LinearLayoutManager(context)
             isNestedScrollingEnabled = true
 
@@ -67,7 +68,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
     }
 
     private fun observeViewModel() {
-        if (breedListOriginal.isEmpty()) {
+        if (originalBreedList.isEmpty()) {
             viewModel.getBreedsList().observe(viewLifecycleOwner, { list ->
                 list?.let { resource ->
                     when (resource.status) {
@@ -76,10 +77,10 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
                             progressBreedsList.visibility = View.GONE
                             searchView.visibility = View.VISIBLE
                             resource.data?.let { breeds ->
-                                breedListOriginal.clear()
-                                breedListOriginal.addAll(breeds)
+                                originalBreedList.clear()
+                                originalBreedList.addAll(breeds)
 
-                                showList(breedListOriginal)
+                                viewModel.breedsList.value = originalBreedList
                             }
                         }
                         Status.ERROR -> {
@@ -99,45 +100,30 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
             })
         } else {
             searchView.visibility = View.VISIBLE
-            showList(breedListOriginal)
+            viewModel.breedsList.value = originalBreedList
         }
-    }
 
-    private fun showList(breeds: List<BreedInfoResponse>) {
-        val query = searchView.query.toString().trim()
+        viewModel.breedsList.observe(viewLifecycleOwner, { list ->
+            list?.let {
+                recyclerBreeds.visibility = View.GONE
+                breedsAdapter.setList(list)
+                breedsAdapter.notifyDataSetChanged()
+                recyclerBreeds.visibility = View.VISIBLE
+            }
+        })
 
-        if (query.isNotEmpty()) {
-            val filteredList = breeds.filter { it.origin?.toLowerCase() == query.toLowerCase() || it.origin?.toLowerCase()?.startsWith(query.toLowerCase()) == true }
+        viewModel.query.observe(viewLifecycleOwner, { query ->
+            query?.let {
+                if (query.isNotEmpty()) {
+                    val filteredList = originalBreedList.filter { it.origin?.toLowerCase() == query.toLowerCase() || it.origin?.toLowerCase()?.startsWith(query.toLowerCase()) == true }
 
-            if (filteredList.isEmpty()) {
-                ResourceUtils.showErrorAlert(requireContext(), "The country ${query} doesn't exist in our list.")
-            } else
-                filteredList(filteredList)
-        } else
-            originalList(breeds)
-    }
-
-    private fun originalList(original: List<BreedInfoResponse>) {
-        recyclerBreeds.visibility = View.GONE
-        breedAdapter.apply {
-            setOriginalList(original)
-            notifyDataSetChanged()
-        }
-        recyclerBreeds.visibility = View.VISIBLE
-    }
-
-    private fun filteredList(filtered: List<BreedInfoResponse>) {
-        recyclerBreeds.visibility = View.GONE
-        breedAdapter.apply {
-            setFilteredList(filtered)
-            notifyDataSetChanged()
-        }
-        recyclerBreeds.visibility = View.VISIBLE
-    }
-
-    private fun filter(query: String) {
-        recyclerBreeds.visibility = View.GONE
-        breedAdapter.filterBreedsList(query)
-        recyclerBreeds.visibility = View.VISIBLE
+                    if (filteredList.isEmpty()) {
+                        ResourceUtils.showErrorAlert(requireContext(), "The country ${query} doesn't exist in our list.")
+                    } else
+                        viewModel.breedsList.value = ArrayList(filteredList)
+                } else
+                    viewModel.breedsList.value = originalBreedList
+            }
+        })
     }
 }
