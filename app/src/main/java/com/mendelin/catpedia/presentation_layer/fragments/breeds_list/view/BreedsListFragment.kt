@@ -22,8 +22,6 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
     private lateinit var breedsAdapter: BreedsAdapter
     private lateinit var searchView: SearchView
 
-    private val originalBreedList: ArrayList<BreedInfoResponse> = arrayListOf()
-
     override fun onResume() {
         super.onResume()
 
@@ -39,13 +37,13 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.query.value = query?.trim() ?: ""
+                viewModel.filter(query?.trim() ?: "")
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText.isNullOrEmpty()) {
-                    viewModel.query.value = ""
+                    viewModel.filter("")
                 }
                 return false
             }
@@ -77,6 +75,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
                 })
             }
         })
+
         recyclerBreeds.apply {
             adapter = breedsAdapter
             layoutManager = LinearLayoutManager(context)
@@ -90,7 +89,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
     }
 
     private fun observeViewModel() {
-        if (originalBreedList.isEmpty()) {
+        if (viewModel.getOriginalBreedList().isEmpty()) {
             viewModel.getBreedsList().observe(viewLifecycleOwner, { list ->
                 list?.let { resource ->
                     when (resource.status) {
@@ -99,10 +98,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
                             progressBreedsList.visibility = View.GONE
                             searchView.visibility = View.VISIBLE
                             resource.data?.let { breeds ->
-                                originalBreedList.clear()
-                                originalBreedList.addAll(breeds)
-
-                                viewModel.breedsList.value = originalBreedList
+                                viewModel.setOriginalBreedList(breeds)
                             }
                         }
                         Status.ERROR -> {
@@ -122,7 +118,6 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
             })
         } else {
             searchView.visibility = View.VISIBLE
-            viewModel.breedsList.value = originalBreedList
         }
 
         viewModel.breedsList.observe(viewLifecycleOwner, { list ->
@@ -134,17 +129,10 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
             }
         })
 
-        viewModel.query.observe(viewLifecycleOwner, { query ->
-            query?.let {
-                if (query.isNotEmpty()) {
-                    val filteredList = originalBreedList.filter { it.origin?.toLowerCase() == query.toLowerCase() || it.origin?.toLowerCase()?.startsWith(query.toLowerCase()) == true }
-
-                    if (filteredList.isEmpty()) {
-                        ResourceUtils.showErrorAlert(requireContext(), "The country ${query} doesn't exist in our list.")
-                    } else
-                        viewModel.breedsList.value = ArrayList(filteredList)
-                } else
-                    viewModel.breedsList.value = originalBreedList
+        viewModel.errorFilter.observe(viewLifecycleOwner, { error ->
+            if (error.isNotEmpty()) {
+                ResourceUtils.showErrorAlert(requireContext(), error)
+                viewModel.errorFilter.value = ""
             }
         })
     }
