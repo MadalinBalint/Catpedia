@@ -1,10 +1,15 @@
 package com.mendelin.catpedia.common
 
 import android.content.Context
+import android.widget.ImageView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.presentation_layer.custom_views.AlertBox
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.io.IOException
 import java.io.InputStream
 
@@ -39,5 +44,26 @@ object ResourceUtils {
             context.getString(R.string.alert_ok),
             null
         )
+    }
+
+    fun showImage(imgView: ImageView, imageUrl: String?) {
+        imageUrl?.let {
+            val circularProgressDrawable = CircularProgressDrawable(imgView.context)
+            circularProgressDrawable.strokeWidth = 6f
+            circularProgressDrawable.centerRadius = 50f
+            circularProgressDrawable.start()
+
+            /* Load cat image */
+            Glide.with(imgView.context)
+                .applyDefaultRequestOptions(
+                    RequestOptions()
+                        .format(DecodeFormat.PREFER_RGB_565)
+                        .disallowHardwareConfig())
+                .load(imageUrl)
+                .optionalCenterCrop()
+                .placeholder(circularProgressDrawable)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imgView)
+        }
     }
 }

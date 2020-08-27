@@ -2,8 +2,6 @@ package com.mendelin.catpedia.presentation_layer.activities.main_screen
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.data_access_layer.preferences.UserPreferences
 import com.mendelin.catpedia.presentation_layer.activities.BaseActivity
@@ -14,8 +12,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(R.layout.activity_main) {
 
-    private lateinit var navController: NavController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,8 +21,6 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         supportActionBar!!.setHomeAsUpIndicator(null)
         supportActionBar!!.setHomeButtonEnabled(false)
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-
-        navController = Navigation.findNavController(this, R.id.navHostFragment)
 
         btnLogout.setOnClickListener {
             val alert = AlertBox()
@@ -50,7 +44,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
             alert.showAlert(this,
                 getString(R.string.alert_warning),
-                "Are you sure you want to logout of Catpedia?",
+                getString(R.string.alert_logout),
                 getString(R.string.alert_ok),
                 getString(R.string.alert_cancel)
             )

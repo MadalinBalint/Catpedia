@@ -8,11 +8,16 @@
     <string name="alert_ok">OK</string>
     <string name="alert_cancel">Cancel</string>
     <string name="alert_error_unknown">Unknown error</string>
+    <string name="alert_logout">Are you sure you want to logout of Catpedia?</string>
 
     <!-- Welcome screen -->
     <string name="welcome_screen_btn_login">Log in</string>
-    <string name="login_user_name">User name</string>
-    <string name="login_password">Password</string>
+    <string name="welcome_screen_user_name">User name</string>
+    <string name="welcome_screen_password">Password</string>
+    <string name="error_empty_field">User name and password fields shouldn\'t be empty.</string>
+
+    <!-- Breeds list -->
+    <string name="breeds_list_btn_logout">Logout</string>
 
     <!-- Breed informations -->
     <string name="breed_info_name">Name</string>
@@ -20,7 +25,5 @@
     <string name="breed_info_country">Country</string>
     <string name="breed_info_temperament">Temperament</string>
     <string name="breed_info_wikipedia">Wikipedia link</string>
-    <string name="btn_logout">Logout</string>
-
 
 </resources>

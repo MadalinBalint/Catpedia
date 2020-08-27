@@ -60,7 +60,7 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
         val password = editUserPassword.text.toString().trim()
 
         if (name.isEmpty() || password.isEmpty()) {
-            ResourceUtils.showErrorAlert(this, "User name and password fields shouldn't be empty.")
+            ResourceUtils.showErrorAlert(this, getString(R.string.error_empty_field))
             return
         }
 
@@ -94,6 +94,4 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
         startActivity(intent)
         finish()
     }
-
-
 }
