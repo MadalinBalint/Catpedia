@@ -12,6 +12,7 @@ import com.mendelin.catpedia.data_access_layer.networking.models.BreedInfoRespon
 import com.mendelin.catpedia.presentation_layer.fragments.BaseFragment
 import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.business_logic.BreedsAdapter
 import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.business_logic.MarginItemDecorationVertical
+import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.business_logic.OnImageLoaderListener
 import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.viewmodel.BreedsViewModel
 import kotlinx.android.synthetic.main.fragment_breeds_list.*
 
@@ -54,7 +55,28 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
         viewModel = ViewModelProvider(this).get(BreedsViewModel::class.java)
 
         /* Setup UI */
-        breedsAdapter = BreedsAdapter(viewModel, viewLifecycleOwner)
+        breedsAdapter = BreedsAdapter(object : OnImageLoaderListener {
+            override fun invoke(holder: BreedsAdapter.BreedInfoResponseViewHolder, breed: BreedInfoResponse) {
+                viewModel.getBreedImage(breed.id).observe(viewLifecycleOwner, {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                resource.data?.let { images ->
+                                    if (images.size == 1) {
+                                        breed.image = images[0]
+                                        holder.bind(breed)
+                                    }
+                                }
+                            }
+                            Status.ERROR -> {
+                            }
+                            Status.LOADING -> {
+                            }
+                        }
+                    }
+                })
+            }
+        })
         recyclerBreeds.apply {
             adapter = breedsAdapter
             layoutManager = LinearLayoutManager(context)

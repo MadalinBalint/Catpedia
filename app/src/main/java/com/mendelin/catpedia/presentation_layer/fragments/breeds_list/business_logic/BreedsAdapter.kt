@@ -2,25 +2,19 @@ package com.mendelin.catpedia.presentation_layer.fragments.breeds_list.business_
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mendelin.catpedia.ItemBreedInfoBinding
-import com.mendelin.catpedia.common.Status
 import com.mendelin.catpedia.data_access_layer.networking.models.BreedInfoResponse
 import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.view.BreedsListFragmentDirections
-import com.mendelin.catpedia.presentation_layer.fragments.breeds_list.viewmodel.BreedsViewModel
 
 internal typealias OnImageLoaderListener = (holder: BreedsAdapter.BreedInfoResponseViewHolder, breed: BreedInfoResponse) -> Unit
 
-class BreedsAdapter(val viewModel: BreedsViewModel,
-                    val owner: LifecycleOwner) : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResponseViewHolder>(DiffCallbackBreedsAdapter) {
+class BreedsAdapter(val listener: OnImageLoaderListener?) : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResponseViewHolder>(DiffCallbackBreedsAdapter) {
 
     private val breedsList: ArrayList<BreedInfoResponse> = arrayListOf()
     lateinit var context: Context
@@ -52,24 +46,7 @@ class BreedsAdapter(val viewModel: BreedsViewModel,
         holder.bind(breed)
 
         if (breed.image == null) {
-            viewModel.getBreedImage(breed.id).observe(owner, {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let { images ->
-                                if (images.size == 1) {
-                                    breed.image = images[0]
-                                    holder.bind(breed)
-                                }
-                            }
-                        }
-                        Status.ERROR -> {
-                        }
-                        Status.LOADING -> {
-                        }
-                    }
-                }
-            })
+            listener?.invoke(holder, breed)
         }
 
         holder.binding.breedCard.setOnClickListener {

@@ -1,10 +1,7 @@
 package com.mendelin.catpedia.presentation_layer.fragments.breed_info
 
 import android.os.Bundle
-import android.transition.ChangeBounds
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -24,18 +21,6 @@ class BreedInfoFragment : BaseFragment(R.layout.fragment_breed_info) {
         super.onResume()
 
         toolbarOff()
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        /* Determine how shared elements are handled */
-        sharedElementEnterTransition = ChangeBounds().apply {
-            duration = 750
-        }
-        sharedElementReturnTransition = ChangeBounds().apply {
-            duration = 750
-        }
-
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
