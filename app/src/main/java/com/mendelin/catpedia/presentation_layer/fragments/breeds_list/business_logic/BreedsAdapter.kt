@@ -28,7 +28,7 @@ class BreedsAdapter(val listener: OnImageLoaderListener?) : ListAdapter<BreedInf
 
     companion object DiffCallbackBreedsAdapter : DiffUtil.ItemCallback<BreedInfoResponse>() {
         override fun areItemsTheSame(oldItem: BreedInfoResponse, newItem: BreedInfoResponse): Boolean {
-            return oldItem.image == newItem.image
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: BreedInfoResponse, newItem: BreedInfoResponse): Boolean {
