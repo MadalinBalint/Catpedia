@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Base64
 import androidx.core.content.edit
+import com.mendelin.catpedia.welcome_screen.bussiness_logic.models.UserObject
 
 object UserPreferences {
 
@@ -102,4 +103,19 @@ object UserPreferences {
     var userAccessToken: String
         get() = read(USER_ACCESS_TOKEN, "") ?: ""
         set(value) = write(USER_ACCESS_TOKEN, value)
+
+    fun logInUser(data: UserObject) {
+        userIsLogged = true
+        userName = data.user_name ?: ""
+        userEmail = data.user_email ?: ""
+        userAccessToken = data.access_token ?: ""
+    }
+
+    fun logOutUser() {
+        userIsLogged = false
+
+        userName = ""
+        userEmail = ""
+        userAccessToken = ""
+    }
 }

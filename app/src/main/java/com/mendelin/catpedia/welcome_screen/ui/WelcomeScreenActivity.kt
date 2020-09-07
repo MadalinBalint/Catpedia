@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.KeyEvent
-import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
+import com.mendelin.catpedia.WelcomeScreenBinding
 import com.mendelin.catpedia.base_classes.BaseActivity
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.main_screen.MainActivity
@@ -22,25 +23,19 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
         private const val SPLASH_TIME_OUT = 2000L
     }
 
+    lateinit var binding: WelcomeScreenBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome_screen)
+        binding.userPreferences = UserPreferences
+
         if (UserPreferences.userIsLogged) {
-            txtUserName.visibility = View.GONE
-            txtUserPassword.visibility = View.GONE
-
-            editUserName.visibility = View.GONE
-            editUserPassword.visibility = View.GONE
-
-            btnLogin.visibility = View.GONE
-
-            txtAppDescription.visibility = View.VISIBLE
-
             Handler().postDelayed({
                 loadMainScreen()
             }, SPLASH_TIME_OUT)
-        } else
-            txtAppDescription.visibility = View.GONE
+        }
 
         /* Pressing Enter/Done on soft keyboard triggers the Login button */
         editUserPassword.setOnEditorActionListener { _, actionId, event ->
@@ -71,11 +66,10 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         val response = it.data
-                        UserPreferences.userIsLogged = true
-                        UserPreferences.userName = response?.data?.user_name ?: ""
-                        UserPreferences.userEmail = response?.data?.user_email ?: ""
-                        UserPreferences.userAccessToken = response?.data?.access_token ?: ""
-                        loadMainScreen()
+                        if (response?.data != null) {
+                            UserPreferences.logInUser(response.data!!)
+                            loadMainScreen()
+                        }
                     }
                     Status.ERROR -> {
                         ResourceUtils.showErrorAlert(this, it.message

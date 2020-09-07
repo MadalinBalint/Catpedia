@@ -3,10 +3,10 @@ package com.mendelin.catpedia.main_screen
 import android.content.Intent
 import android.os.Bundle
 import com.mendelin.catpedia.R
-import com.mendelin.catpedia.preferences.UserPreferences
 import com.mendelin.catpedia.base_classes.BaseActivity
-import com.mendelin.catpedia.welcome_screen.ui.WelcomeScreenActivity
 import com.mendelin.catpedia.custom_views.AlertBox
+import com.mendelin.catpedia.preferences.UserPreferences
+import com.mendelin.catpedia.welcome_screen.ui.WelcomeScreenActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -26,11 +26,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
             val alert = AlertBox()
 
             alert.setPositiveButtonListener { _, _ ->
-                UserPreferences.userIsLogged = false
-
-                UserPreferences.userName = ""
-                UserPreferences.userEmail = ""
-                UserPreferences.userAccessToken = ""
+                UserPreferences.logOutUser()
 
                 val intent = Intent(this, WelcomeScreenActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
