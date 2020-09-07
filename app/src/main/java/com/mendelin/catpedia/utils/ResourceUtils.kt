@@ -53,7 +53,6 @@ object ResourceUtils {
             circularProgressDrawable.centerRadius = 50f
             circularProgressDrawable.start()
 
-            /* Load cat image */
             Glide.with(imgView.context)
                 .applyDefaultRequestOptions(
                     RequestOptions()

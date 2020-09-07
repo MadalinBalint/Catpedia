@@ -8,7 +8,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mendelin.catpedia.ItemBreedInfoBinding
+import com.mendelin.catpedia.ItemBreedListBinding
 import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
 import com.mendelin.catpedia.breeds_list.ui.BreedsListFragmentDirections
 
@@ -19,7 +19,7 @@ class BreedsAdapter(val listener: OnImageLoaderListener?) : ListAdapter<BreedInf
     private val breedsList: ArrayList<BreedInfoResponse> = arrayListOf()
     lateinit var context: Context
 
-    class BreedInfoResponseViewHolder(var binding: ItemBreedInfoBinding) : RecyclerView.ViewHolder(binding.root) {
+    class BreedInfoResponseViewHolder(var binding: ItemBreedListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(property: BreedInfoResponse) {
             binding.property = property
             binding.executePendingBindings()
@@ -38,7 +38,7 @@ class BreedsAdapter(val listener: OnImageLoaderListener?) : ListAdapter<BreedInf
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreedInfoResponseViewHolder {
         context = parent.context
-        return BreedInfoResponseViewHolder(ItemBreedInfoBinding.inflate(LayoutInflater.from(context)))
+        return BreedInfoResponseViewHolder(ItemBreedListBinding.inflate(LayoutInflater.from(context)))
     }
 
     override fun onBindViewHolder(holder: BreedInfoResponseViewHolder, position: Int) {
