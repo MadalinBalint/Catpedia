@@ -10,7 +10,7 @@
         android:background="@android:color/white"
         android:fillViewport="true"
         android:scrollbars="vertical"
-        tools:context="com.mendelin.catpedia.presentation_layer.fragments.breed_info.BreedInfoFragment">
+        tools:context=".breed_info.ui.BreedInfoFragment">
 
         <LinearLayout
             android:id="@+id/layoutPages"
