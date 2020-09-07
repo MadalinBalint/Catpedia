@@ -2,15 +2,15 @@ package com.mendelin.catpedia.welcome_screen.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.mendelin.catpedia.BuildConfig
 import com.mendelin.catpedia.retrofit.Resource
-import com.mendelin.catpedia.server.ServerConfig
 import com.mendelin.catpedia.welcome_screen.bussiness_logic.models.LoginResponse
 import com.mendelin.catpedia.welcome_screen.bussiness_logic.repository.LoginMockupRepository
 import kotlinx.coroutines.Dispatchers
 
 class LoginViewModel : ViewModel() {
     private fun loginUserMocked(username: String, password: String): LoginResponse {
-        if (username == ServerConfig.getMockedUserName() && password == ServerConfig.getMockedUserPassword()) {
+        if (username == BuildConfig.MOCKED_USER_NAME && password == BuildConfig.MOCKED_USER_PASSWORD) {
             return LoginMockupRepository.dataLoginOk!!
         } else {
             throw Exception(LoginMockupRepository.dataLoginWrong?.message)

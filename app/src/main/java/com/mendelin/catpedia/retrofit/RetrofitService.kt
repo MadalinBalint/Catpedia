@@ -1,6 +1,6 @@
 package com.mendelin.catpedia.retrofit
 
-import com.mendelin.catpedia.server.ServerConfig
+import com.mendelin.catpedia.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Interceptor
@@ -19,7 +19,7 @@ class RetrofitService {
             addInterceptor(
                 Interceptor { chain ->
                     val builder = chain.request().newBuilder()
-                    builder.header(ServerConfig.getApiHeader(), ServerConfig.getApiKey())
+                    builder.header(BuildConfig.API_HEADER, BuildConfig.API_KEY)
                     return@Interceptor chain.proceed(builder.build())
                 }
             )
@@ -27,7 +27,7 @@ class RetrofitService {
 
         private val retrofit = Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .baseUrl(ServerConfig.getBaseUrl())
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .build()
     }
