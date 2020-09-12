@@ -11,7 +11,7 @@ interface CatpediaApiService {
     suspend fun getListOfCatBreeds(): List<BreedInfoResponse>
 
     @GET("v1/images/search")
-    suspend fun getBreedImage(@Query("breed_id") breedId: String, @Query("size") size: String = "med"): List<BreedImageResponse>
+    suspend fun getBreedImage(@Query("breed_id") breedId: String, @Query("size") size: String = "thumb"): List<BreedImageResponse>
 
     /* To use when backend endepoint is available */
     @GET("v1/login.php")

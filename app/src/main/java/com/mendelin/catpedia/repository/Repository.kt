@@ -4,5 +4,5 @@ import androidx.annotation.Keep
 
 @Keep
 interface Repository<T> {
-    fun readData(): T? = null
+    fun readData(): T?
 }

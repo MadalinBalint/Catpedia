@@ -67,11 +67,14 @@ class BreedsAdapter(val listener: OnImageLoaderListener?) : ListAdapter<BreedInf
     }
 
     fun setList(list: List<BreedInfoResponse>) {
+        list.sortedBy { it.name }
+
         breedsList.apply {
             clear()
             addAll(list)
         }
 
         submitList(breedsList)
+        notifyDataSetChanged()
     }
 }

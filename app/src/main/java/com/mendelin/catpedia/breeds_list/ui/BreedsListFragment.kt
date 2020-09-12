@@ -12,10 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.base_classes.BaseFragment
-import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
+import com.mendelin.catpedia.breed_info.repository.BreedInfoRepository
 import com.mendelin.catpedia.breeds_list.adapter.BreedsAdapter
 import com.mendelin.catpedia.breeds_list.adapter.MarginItemDecorationVertical
 import com.mendelin.catpedia.breeds_list.adapter.OnImageLoaderListener
+import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
+import com.mendelin.catpedia.breeds_list.repository.CatBreedsRepository
 import com.mendelin.catpedia.breeds_list.viewmodel.BreedsViewModel
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.utils.ResourceUtils
@@ -62,7 +64,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
         /* Setup UI */
         breedsAdapter = BreedsAdapter(object : OnImageLoaderListener {
             override fun invoke(holder: BreedsAdapter.BreedInfoResponseViewHolder, breed: BreedInfoResponse) {
-                viewModel.getBreedImage(breed.id).observe(viewLifecycleOwner, {
+                BreedInfoRepository.readData(breed.id).observe(viewLifecycleOwner, {
                     it?.let { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {
@@ -118,7 +120,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
     private fun observeViewModel() {
         if (viewModel.getOriginalBreedList().isEmpty()) {
-            viewModel.getBreedsList().observe(viewLifecycleOwner, { list ->
+            CatBreedsRepository.readData().observe(viewLifecycleOwner, { list ->
                 list?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
