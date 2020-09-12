@@ -23,11 +23,8 @@ class AlertBox : AppCompatActivity() {
         alertDialogBuilder.setTitle(title)
         alertDialogBuilder.setMessage(message)
 
-        if (listenerPositiveButton != null)
-            alertDialogBuilder.setPositiveButton(btnPositive, listenerPositiveButton)
-
-        if (listenerNegativeButton != null)
-            alertDialogBuilder.setNegativeButton(btnNegative, listenerNegativeButton)
+        listenerPositiveButton?.let { alertDialogBuilder.setPositiveButton(btnPositive, it) }
+        listenerNegativeButton?.let { alertDialogBuilder.setNegativeButton(btnNegative, it) }
 
         val alertDialog = alertDialogBuilder.create()
         if (!alertDialog.isShowing) {
