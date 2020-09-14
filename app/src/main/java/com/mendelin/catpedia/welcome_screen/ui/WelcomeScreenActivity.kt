@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.WelcomeScreenBinding
 import com.mendelin.catpedia.base_classes.BaseActivity
@@ -59,7 +59,7 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
             return
         }
 
-        val viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        val viewModel: LoginViewModel by viewModels()
 
         viewModel.loginUser(name, password).observe(this, {
             it?.let { resource ->

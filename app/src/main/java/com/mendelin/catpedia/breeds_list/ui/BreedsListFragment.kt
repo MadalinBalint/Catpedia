@@ -8,7 +8,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.base_classes.BaseFragment
@@ -27,7 +27,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
     private var internectBroadcastReceiver: BroadcastReceiver? = null
 
-    private lateinit var viewModel: BreedsViewModel
+    private val viewModel: BreedsViewModel by viewModels()
     private lateinit var breedsAdapter: BreedsAdapter
     private lateinit var searchView: SearchView
 
@@ -41,7 +41,6 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
         super.onViewCreated(view, savedInstanceState)
 
         searchView = activity?.findViewById(R.id.searchView)!!
-
         searchView.visibility = View.GONE
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -57,9 +56,6 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
                 return false
             }
         })
-
-        /* Setup view model */
-        viewModel = ViewModelProvider(this).get(BreedsViewModel::class.java)
 
         /* Setup UI */
         breedsAdapter = BreedsAdapter(object : OnImageLoaderListener {
