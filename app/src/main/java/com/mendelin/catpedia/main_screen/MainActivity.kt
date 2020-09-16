@@ -17,10 +17,14 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
         setSupportActionBar(toolbar)
 
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
-        supportActionBar!!.setHomeAsUpIndicator(null)
-        supportActionBar!!.setHomeButtonEnabled(false)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.let {
+            with(it) {
+                setDisplayShowTitleEnabled(false)
+                setHomeAsUpIndicator(null)
+                setHomeButtonEnabled(false)
+                setDisplayHomeAsUpEnabled(false)
+            }
+        }
 
         btnLogout.setOnClickListener {
             val alert = AlertBox()
