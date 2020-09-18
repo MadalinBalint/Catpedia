@@ -35,8 +35,13 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
 
+    @Inject
+    lateinit var breedsAdapter: BreedsAdapter
+
+    @Inject
+    lateinit var breedsRepository: CatBreedsRepository
+
     private lateinit var viewModel: BreedsViewModel
-    private lateinit var breedsAdapter: BreedsAdapter
     private lateinit var searchView: SearchView
 
     override fun onResume() {
@@ -68,7 +73,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
         })
 
         /* Setup UI */
-        breedsAdapter = BreedsAdapter(object : OnImageLoaderListener {
+        breedsAdapter.addListener(object : OnImageLoaderListener {
             override fun invoke(holder: BreedsAdapter.BreedInfoResponseViewHolder, breed: BreedInfoResponse) {
                 repository.readData(breed.id).observe(viewLifecycleOwner, {
                     it?.let { resource ->
@@ -126,7 +131,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
     private fun observeViewModel() {
         if (viewModel.getOriginalBreedList().isEmpty()) {
-            CatBreedsRepository.readData().observe(viewLifecycleOwner, { list ->
+            breedsRepository.readData().observe(viewLifecycleOwner, { list ->
                 list?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {

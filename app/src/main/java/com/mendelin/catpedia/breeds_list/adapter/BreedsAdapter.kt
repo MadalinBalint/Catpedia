@@ -14,8 +14,9 @@ import com.mendelin.catpedia.breeds_list.ui.BreedsListFragmentDirections
 
 internal typealias OnImageLoaderListener = (holder: BreedsAdapter.BreedInfoResponseViewHolder, breed: BreedInfoResponse) -> Unit
 
-class BreedsAdapter(val listener: OnImageLoaderListener?) : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResponseViewHolder>(DiffCallbackBreedsAdapter) {
+class BreedsAdapter : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResponseViewHolder>(DiffCallbackBreedsAdapter) {
 
+    private var listener: OnImageLoaderListener? = null
     private val breedsList: ArrayList<BreedInfoResponse> = arrayListOf()
     lateinit var context: Context
 
@@ -76,5 +77,9 @@ class BreedsAdapter(val listener: OnImageLoaderListener?) : ListAdapter<BreedInf
 
         submitList(breedsList)
         notifyDataSetChanged()
+    }
+
+    fun addListener(listener: OnImageLoaderListener?) {
+        this.listener = listener
     }
 }
