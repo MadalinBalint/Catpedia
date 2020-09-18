@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.main_screen
+package com.mendelin.catpedia.main
 
 import android.content.Intent
 import android.os.Bundle

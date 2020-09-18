@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
@@ -13,7 +12,7 @@ import com.mendelin.catpedia.WelcomeScreenBinding
 import com.mendelin.catpedia.base_classes.BaseActivity
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
-import com.mendelin.catpedia.main_screen.MainActivity
+import com.mendelin.catpedia.main.MainActivity
 import com.mendelin.catpedia.preferences.UserPreferences
 import com.mendelin.catpedia.utils.ResourceUtils
 import com.mendelin.catpedia.welcome_screen.viewmodel.LoginViewModel

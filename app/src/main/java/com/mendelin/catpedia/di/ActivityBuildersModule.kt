@@ -4,9 +4,10 @@ import com.mendelin.catpedia.di.main.MainFragmentBuildersModule
 import com.mendelin.catpedia.di.main.MainModule
 import com.mendelin.catpedia.di.main.MainScope
 import com.mendelin.catpedia.di.main.MainViewModelsModule
+import com.mendelin.catpedia.di.welcome_screen.WelcomeScreenModule
 import com.mendelin.catpedia.di.welcome_screen.WelcomeScreenScope
 import com.mendelin.catpedia.di.welcome_screen.WelcomeScreenViewModelsModule
-import com.mendelin.catpedia.main_screen.MainActivity
+import com.mendelin.catpedia.main.MainActivity
 import com.mendelin.catpedia.welcome_screen.ui.WelcomeScreenActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -18,7 +19,8 @@ abstract class ActivityBuildersModule {
     @WelcomeScreenScope
     @ContributesAndroidInjector(
         modules = [
-            WelcomeScreenViewModelsModule::class
+            WelcomeScreenViewModelsModule::class,
+            WelcomeScreenModule::class
         ]
     )
     abstract fun contributeWelcomeScreenActivity(): WelcomeScreenActivity
