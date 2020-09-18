@@ -4,9 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class BreedsViewModel : ViewModel() {
+class BreedsViewModel @Inject constructor() : ViewModel() {
     private val originalBreedList: ArrayList<BreedInfoResponse> = arrayListOf()
 
     val breedsList = MutableLiveData<ArrayList<BreedInfoResponse>>()
@@ -27,8 +28,8 @@ class BreedsViewModel : ViewModel() {
         query?.let {
             if (query.isNotEmpty()) {
                 val filteredList = originalBreedList.filter {
-                it.origin?.toLowerCase(Locale.ROOT) == query.toLowerCase(Locale.ROOT) ||
-                        it.origin?.toLowerCase(Locale.ROOT)?.indexOf(query.toLowerCase(Locale.ROOT))!! >= 0
+                    it.origin?.toLowerCase(Locale.ROOT) == query.toLowerCase(Locale.ROOT) ||
+                            it.origin?.toLowerCase(Locale.ROOT)?.indexOf(query.toLowerCase(Locale.ROOT))!! >= 0
                 }
 
                 if (filteredList.isEmpty()) {

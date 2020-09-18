@@ -7,15 +7,18 @@ import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.WelcomeScreenBinding
 import com.mendelin.catpedia.base_classes.BaseActivity
 import com.mendelin.catpedia.constants.Status
+import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.main_screen.MainActivity
 import com.mendelin.catpedia.preferences.UserPreferences
 import com.mendelin.catpedia.utils.ResourceUtils
 import com.mendelin.catpedia.welcome_screen.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_welcome_screen.*
+import javax.inject.Inject
 
 
 class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
@@ -24,6 +27,9 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
     }
 
     lateinit var binding: WelcomeScreenBinding
+
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +65,11 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
             return
         }
 
-        val viewModel: LoginViewModel by viewModels()
+        //val viewModel: LoginViewModel by viewModels()
 
-        viewModel.loginUser(name, password).observe(this, {
+        val viewModel = ViewModelProvider(this, providerFactory).get(LoginViewModel::class.java)
+
+        viewModel.loginUser(this, name, password).observe(this, {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

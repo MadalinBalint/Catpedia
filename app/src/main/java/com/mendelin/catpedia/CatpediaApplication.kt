@@ -1,12 +1,21 @@
 package com.mendelin.catpedia
 
-import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
+import com.mendelin.catpedia.di.DaggerAppComponent
 import com.mendelin.catpedia.logging.TimberPlant
 import com.mendelin.catpedia.preferences.UserPreferences
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
+import javax.inject.Inject
 
-class CatpediaApplication : Application() {
+class CatpediaApplication @Inject constructor() : DaggerApplication() {
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder()
+            .application(this)
+            .build()
+    }
 
     init {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
@@ -21,16 +30,6 @@ class CatpediaApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        if (instance == null) {
-            instance = this
-        }
-
         TimberPlant.plantTimberDebugLogger()
-    }
-
-    companion object {
-        private var instance: CatpediaApplication? = null
-
-        fun getInstance(): CatpediaApplication = instance!!
     }
 }

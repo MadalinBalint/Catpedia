@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.base_classes.BaseFragment
@@ -20,14 +21,19 @@ import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
 import com.mendelin.catpedia.breeds_list.repository.CatBreedsRepository
 import com.mendelin.catpedia.breeds_list.viewmodel.BreedsViewModel
 import com.mendelin.catpedia.constants.Status
+import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.utils.ResourceUtils
 import kotlinx.android.synthetic.main.fragment_breeds_list.*
+import javax.inject.Inject
 
 class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
     private var internectBroadcastReceiver: BroadcastReceiver? = null
 
-    private val viewModel: BreedsViewModel by viewModels()
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+
+    private lateinit var viewModel: BreedsViewModel
     private lateinit var breedsAdapter: BreedsAdapter
     private lateinit var searchView: SearchView
 
@@ -39,6 +45,8 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this, providerFactory).get(BreedsViewModel::class.java)
 
         searchView = activity?.findViewById(R.id.searchView)!!
         searchView.visibility = View.GONE

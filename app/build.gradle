@@ -101,6 +101,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"
 
     /* Dagger 2 - Dependency Injection */
     implementation"com.google.dagger:dagger:$dagger_version"
@@ -119,11 +120,13 @@ dependencies {
     /* Moshi */
     implementation "com.squareup.moshi:moshi-kotlin:1.9.3"
 
-    /* Retrofit with Moshi Converter */
-    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    /* ReactiveX */
+    implementation "io.reactivex.rxjava3:rxkotlin:3.0.0"
 
     /* Retrofit networking library */
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
 
     /* Timber logging */
     implementation "com.jakewharton.timber:timber:4.7.1"

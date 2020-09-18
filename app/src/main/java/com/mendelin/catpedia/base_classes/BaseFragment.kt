@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.mendelin.catpedia.R
+import dagger.android.support.DaggerFragment
 
 
-abstract class BaseFragment(private val layoutId: Int) : Fragment() {
+abstract class BaseFragment(private val layoutId: Int) : DaggerFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         /* Determine how shared elements are handled */
