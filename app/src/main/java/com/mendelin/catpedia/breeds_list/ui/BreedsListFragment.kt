@@ -8,7 +8,6 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
@@ -29,6 +28,9 @@ import javax.inject.Inject
 class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
     private var internectBroadcastReceiver: BroadcastReceiver? = null
+
+    @Inject
+    lateinit var repository: BreedInfoRepository
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
@@ -68,7 +70,7 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
         /* Setup UI */
         breedsAdapter = BreedsAdapter(object : OnImageLoaderListener {
             override fun invoke(holder: BreedsAdapter.BreedInfoResponseViewHolder, breed: BreedInfoResponse) {
-                BreedInfoRepository.readData(breed.id).observe(viewLifecycleOwner, {
+                repository.readData(breed.id).observe(viewLifecycleOwner, {
                     it?.let { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {

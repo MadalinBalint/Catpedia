@@ -6,8 +6,9 @@ import com.mendelin.catpedia.breed_info.models.BreedImageResponse
 import com.mendelin.catpedia.rest_service.CatpediaApi
 import com.mendelin.catpedia.retrofit.Resource
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-object BreedInfoRepository : LiveData<Resource<List<BreedImageResponse>>>() {
+class BreedInfoRepository @Inject constructor() : LiveData<Resource<List<BreedImageResponse>>>() {
     private fun getBreedImage(breedId: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
