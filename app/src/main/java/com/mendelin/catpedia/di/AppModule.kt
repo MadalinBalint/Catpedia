@@ -8,6 +8,7 @@ import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
@@ -40,6 +41,7 @@ class AppModule {
     fun provideRetrofitBuilderInstance(moshi: Moshi, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .build()
