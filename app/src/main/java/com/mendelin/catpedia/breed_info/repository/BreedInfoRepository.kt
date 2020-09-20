@@ -1,7 +1,7 @@
 package com.mendelin.catpedia.breed_info.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
+import androidx.lifecycle.MutableLiveData
 import com.mendelin.catpedia.breed_info.models.BreedImageResponse
 import com.mendelin.catpedia.retrofit.CatpediaApiService
 import com.mendelin.catpedia.retrofit.Resource
@@ -12,18 +12,22 @@ class BreedInfoRepository @Inject constructor(
     private val service: CatpediaApiService
 ) : LiveData<Resource<List<BreedImageResponse>>>() {
     private fun getBreedImage(breedId: String): LiveData<Resource<List<BreedImageResponse>>> {
-        return LiveDataReactiveStreams.fromPublisher(
-            service.getBreedImage(breedId)
-                .doOnError {
-                    Resource.error(data = null, message = it.message ?: "Error Occurred!")
+        val breedImage: MutableLiveData<Resource<List<BreedImageResponse>>> = MutableLiveData()
+        breedImage.postValue(Resource.loading(data = null))
+
+        service.getBreedImage(breedId)
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                breedImage.postValue(Resource.success(it))
+            },
+                {
+                    breedImage.postValue(Resource.error(data = null, message = it.message
+                        ?: "Error Occurred!"))
                 }
-                .map<Resource<List<BreedImageResponse>>?> {
-                    Resource.success(it)
-                }
-                .subscribeOn(Schedulers.io())
-        )
+            )
+
+        return breedImage
     }
 
-    fun readData(breedId: String): LiveData<Resource<List<BreedImageResponse>>> =
-        getBreedImage(breedId)
+    fun readData(breedId: String) = getBreedImage(breedId)
 }
