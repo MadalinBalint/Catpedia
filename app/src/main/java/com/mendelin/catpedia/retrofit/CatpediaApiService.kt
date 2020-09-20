@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.rest_service
+package com.mendelin.catpedia.retrofit
 
 import com.mendelin.catpedia.BuildConfig
 import com.mendelin.catpedia.breed_info.models.BreedImageResponse

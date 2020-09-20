@@ -3,7 +3,7 @@ package com.mendelin.catpedia.breeds_list.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
-import com.mendelin.catpedia.rest_service.CatpediaApiService
+import com.mendelin.catpedia.retrofit.CatpediaApiService
 import com.mendelin.catpedia.retrofit.Resource
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
