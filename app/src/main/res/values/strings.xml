@@ -15,6 +15,7 @@
     <string name="welcome_screen_user_name">User name</string>
     <string name="welcome_screen_password">Password</string>
     <string name="error_empty_field">User name and password fields shouldn\'t be empty.</string>
+    <string name="application_logo">Application logo</string>
 
     <!-- Breeds list -->
     <string name="breeds_list_btn_logout">Logout</string>
@@ -25,6 +26,5 @@
     <string name="breed_info_country">Country</string>
     <string name="breed_info_temperament">Temperament</string>
     <string name="breed_info_wikipedia">Wikipedia link</string>
-    <string name="application_logo">Application logo</string>
 
 </resources>

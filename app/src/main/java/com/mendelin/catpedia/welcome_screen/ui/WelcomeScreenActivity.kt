@@ -8,7 +8,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
-import com.mendelin.catpedia.WelcomeScreenBinding
+import com.mendelin.catpedia.WelcomeScreenDataBinding
 import com.mendelin.catpedia.base_classes.BaseActivity
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
@@ -25,7 +25,7 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
         private const val SPLASH_TIME_OUT = 2000L
     }
 
-    lateinit var binding: WelcomeScreenBinding
+    lateinit var binding: WelcomeScreenDataBinding
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory

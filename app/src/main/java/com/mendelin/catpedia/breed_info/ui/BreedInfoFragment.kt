@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.mendelin.catpedia.BreedInfoBinding
+import com.mendelin.catpedia.BreedInfoDataBinding
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.base_classes.BaseFragment
 import kotlinx.android.synthetic.main.fragment_breed_info.*
@@ -15,9 +15,9 @@ class BreedInfoFragment : BaseFragment(R.layout.fragment_breed_info) {
 
     private val args: BreedInfoFragmentArgs by navArgs()
 
-    lateinit var binding: BreedInfoBinding
+    lateinit var binding: BreedInfoDataBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = BreedInfoBinding.inflate(inflater, container, false)
+        binding = BreedInfoDataBinding.inflate(inflater, container, false)
         binding.args = args
         return binding.root
     }
