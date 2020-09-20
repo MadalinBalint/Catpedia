@@ -2,17 +2,22 @@ package com.mendelin.catpedia.breeds_list.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mendelin.catpedia.breed_info.repository.BreedInfoRepository
 import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
+import com.mendelin.catpedia.breeds_list.repository.CatBreedsRepository
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class BreedsViewModel @Inject constructor() : ViewModel() {
+class BreedsViewModel @Inject constructor(
+    private val breedsRepository: CatBreedsRepository,
+    private val breedInfoRepository: BreedInfoRepository
+) : ViewModel() {
     private val originalBreedList: ArrayList<BreedInfoResponse> = arrayListOf()
 
-    val breedsList = MutableLiveData<ArrayList<BreedInfoResponse>>()
+    private val breedsList = MutableLiveData<ArrayList<BreedInfoResponse>>()
 
-    val errorFilter = MutableLiveData<String>()
+    private val errorFilter = MutableLiveData<String>()
 
     fun getOriginalBreedList(): ArrayList<BreedInfoResponse> = originalBreedList
     fun setOriginalBreedList(list: List<BreedInfoResponse>) {
@@ -21,8 +26,11 @@ class BreedsViewModel @Inject constructor() : ViewModel() {
             addAll(list)
         }
 
-        breedsList.value = originalBreedList
+        breedsList.postValue(originalBreedList)
     }
+
+    fun getBreedsList() = breedsList
+    fun getErrorFilter() = errorFilter
 
     fun filter(query: String?) {
         query?.let {
@@ -33,11 +41,15 @@ class BreedsViewModel @Inject constructor() : ViewModel() {
                 }
 
                 if (filteredList.isEmpty()) {
-                    errorFilter.value = "The country '${query}' for the cat's origin doesn't exist in our list."
+                    errorFilter.postValue("The country '${query}' for the cat's origin doesn't exist in our list.")
                 } else
-                    breedsList.value = ArrayList(filteredList)
+                    breedsList.postValue(ArrayList(filteredList))
             } else
-                breedsList.value = originalBreedList
+                breedsList.postValue(originalBreedList)
         }
     }
+
+    fun readBreedsData() = breedsRepository.readData()
+
+    fun readBreedInfoData(breedId: String) = breedInfoRepository.readData(breedId)
 }

@@ -12,12 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.base_classes.BaseFragment
-import com.mendelin.catpedia.breed_info.repository.BreedInfoRepository
 import com.mendelin.catpedia.breeds_list.adapter.BreedsAdapter
 import com.mendelin.catpedia.breeds_list.adapter.MarginItemDecorationVertical
 import com.mendelin.catpedia.breeds_list.adapter.OnImageLoaderListener
 import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
-import com.mendelin.catpedia.breeds_list.repository.CatBreedsRepository
 import com.mendelin.catpedia.breeds_list.viewmodel.BreedsViewModel
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
@@ -30,19 +28,13 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
     private var internectBroadcastReceiver: BroadcastReceiver? = null
 
     @Inject
-    lateinit var repository: BreedInfoRepository
-
-    @Inject
     lateinit var providerFactory: ViewModelProviderFactory
 
     @Inject
     lateinit var breedsAdapter: BreedsAdapter
 
-    @Inject
-    lateinit var breedsRepository: CatBreedsRepository
-
     private lateinit var viewModel: BreedsViewModel
-    private lateinit var searchView: SearchView
+    val searchView: SearchView? by lazy { activity?.findViewById(R.id.searchView) }
 
     override fun onResume() {
         super.onResume()
@@ -55,10 +47,9 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
         viewModel = ViewModelProvider(this, providerFactory).get(BreedsViewModel::class.java)
 
-        searchView = activity?.findViewById(R.id.searchView)!!
-        searchView.visibility = View.GONE
+        searchView?.visibility = View.GONE
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.filter(query?.trim() ?: "")
                 return false
@@ -75,24 +66,25 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
         /* Setup UI */
         breedsAdapter.addListener(object : OnImageLoaderListener {
             override fun invoke(holder: BreedsAdapter.BreedInfoResponseViewHolder, breed: BreedInfoResponse) {
-                repository.readData(breed.id).observe(viewLifecycleOwner, {
-                    it?.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> {
-                                resource.data?.let { images ->
-                                    if (images.size == 1) {
-                                        breed.image = images[0]
-                                        holder.bind(breed)
+                viewModel.readBreedInfoData(breed.id)
+                    .observe(viewLifecycleOwner, {
+                        it?.let { resource ->
+                            when (resource.status) {
+                                Status.SUCCESS -> {
+                                    resource.data?.let { images ->
+                                        if (images.size == 1) {
+                                            breed.image = images[0]
+                                            holder.bind(breed)
+                                        }
                                     }
                                 }
-                            }
-                            Status.ERROR -> {
-                            }
-                            Status.LOADING -> {
+                                Status.ERROR -> {
+                                }
+                                Status.LOADING -> {
+                                }
                             }
                         }
-                    }
-                })
+                    })
             }
         })
 
@@ -131,50 +123,53 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
 
     private fun observeViewModel() {
         if (viewModel.getOriginalBreedList().isEmpty()) {
-            breedsRepository.readData().observe(viewLifecycleOwner, { list ->
-                list?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            recyclerBreeds.visibility = View.VISIBLE
-                            progressBreedsList.visibility = View.GONE
-                            searchView.visibility = View.VISIBLE
-                            resource.data?.let { breeds ->
-                                viewModel.setOriginalBreedList(breeds)
+            viewModel.readBreedsData()
+                .observe(viewLifecycleOwner, { list ->
+                    list?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                recyclerBreeds.visibility = View.VISIBLE
+                                progressBreedsList.visibility = View.GONE
+                                searchView?.visibility = View.VISIBLE
+                                resource.data?.let { breeds ->
+                                    viewModel.setOriginalBreedList(breeds)
+                                }
+                            }
+                            Status.ERROR -> {
+                                recyclerBreeds.visibility = View.VISIBLE
+                                progressBreedsList.visibility = View.GONE
+                                searchView?.visibility = View.GONE
+                                ResourceUtils.showErrorAlert(requireContext(), list.message
+                                    ?: getString(R.string.alert_error_unknown))
+                            }
+                            Status.LOADING -> {
+                                progressBreedsList.visibility = View.VISIBLE
+                                recyclerBreeds.visibility = View.GONE
+                                searchView?.visibility = View.GONE
                             }
                         }
-                        Status.ERROR -> {
-                            recyclerBreeds.visibility = View.VISIBLE
-                            progressBreedsList.visibility = View.GONE
-                            searchView.visibility = View.GONE
-                            ResourceUtils.showErrorAlert(requireContext(), list.message
-                                ?: getString(R.string.alert_error_unknown))
-                        }
-                        Status.LOADING -> {
-                            progressBreedsList.visibility = View.VISIBLE
-                            recyclerBreeds.visibility = View.GONE
-                            searchView.visibility = View.GONE
-                        }
                     }
-                }
-            })
+                })
         } else {
-            searchView.visibility = View.VISIBLE
+            searchView?.visibility = View.VISIBLE
         }
 
-        viewModel.breedsList.observe(viewLifecycleOwner, { list ->
-            list?.let {
-                recyclerBreeds.visibility = View.GONE
-                breedsAdapter.setList(list)
-                breedsAdapter.notifyDataSetChanged()
-                recyclerBreeds.visibility = View.VISIBLE
-            }
-        })
+        viewModel.getBreedsList()
+            .observe(viewLifecycleOwner, { list ->
+                list?.let {
+                    recyclerBreeds.visibility = View.GONE
+                    breedsAdapter.setList(list)
+                    breedsAdapter.notifyDataSetChanged()
+                    recyclerBreeds.visibility = View.VISIBLE
+                }
+            })
 
-        viewModel.errorFilter.observe(viewLifecycleOwner, { error ->
-            if (error.isNotEmpty()) {
-                ResourceUtils.showErrorAlert(requireContext(), error)
-                viewModel.errorFilter.value = ""
-            }
-        })
+        viewModel.getErrorFilter()
+            .observe(viewLifecycleOwner, { error ->
+                if (error.isNotEmpty()) {
+                    ResourceUtils.showErrorAlert(requireContext(), error)
+                    viewModel.getErrorFilter().postValue("")
+                }
+            })
     }
 }
