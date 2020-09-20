@@ -2,7 +2,6 @@ package com.mendelin.catpedia.base_classes
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import dagger.android.support.DaggerAppCompatActivity
 
 abstract class BaseActivity(private val layoutId: Int) : DaggerAppCompatActivity() {

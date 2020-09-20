@@ -64,8 +64,6 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
             return
         }
 
-        //val viewModel: LoginViewModel by viewModels()
-
         val viewModel = ViewModelProvider(this, providerFactory).get(LoginViewModel::class.java)
 
         viewModel.loginUser(this, name, password).observe(this, {
