@@ -39,7 +39,7 @@ class BreedsAdapter : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResp
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreedInfoResponseViewHolder {
         context = parent.context
-        return BreedInfoResponseViewHolder(ItemBreedListBinding.inflate(LayoutInflater.from(context)))
+        return BreedInfoResponseViewHolder(ItemBreedListBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
     override fun onBindViewHolder(holder: BreedInfoResponseViewHolder, position: Int) {
