@@ -8,6 +8,7 @@ ext {
     glide_version = "4.11.0"
     lifecycle_version = "2.2.0"
     dagger_version = "2.29.1"
+    retrofit_version = "2.9.0"
 }
 
 android {
@@ -124,9 +125,9 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxkotlin:3.0.0"
 
     /* Retrofit networking library */
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
-    implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
 
     /* Timber logging */
     implementation "com.jakewharton.timber:timber:4.7.1"
