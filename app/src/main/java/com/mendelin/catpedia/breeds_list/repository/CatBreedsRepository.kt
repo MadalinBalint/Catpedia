@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class CatBreedsRepository @Inject constructor(
     private val service: CatpediaApiService
-) : LiveData<Resource<List<BreedInfoResponse>>>() {
+) {
     private fun getBreedsList(): LiveData<Resource<List<BreedInfoResponse>>> {
         val breedsList: MutableLiveData<Resource<List<BreedInfoResponse>>> = MutableLiveData()
         breedsList.postValue(Resource.loading(data = null))
