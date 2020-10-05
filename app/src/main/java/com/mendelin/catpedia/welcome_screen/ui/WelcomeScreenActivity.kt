@@ -18,6 +18,9 @@ import com.mendelin.catpedia.utils.ResourceUtils
 import com.mendelin.catpedia.welcome_screen.viewmodel.LoginViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_welcome_screen.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -38,9 +41,10 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
         binding.userPreferences = UserPreferences
 
         if (UserPreferences.userIsLogged) {
-            Handler().postDelayed({
+            GlobalScope.launch {
+                delay(SPLASH_TIME_OUT)
                 loadMainScreen()
-            }, SPLASH_TIME_OUT)
+            }
         }
 
         /* Pressing Enter/Done on soft keyboard triggers the Login button */
