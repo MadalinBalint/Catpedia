@@ -1,9 +1,9 @@
 package com.mendelin.catpedia.retrofit
 
 import com.mendelin.catpedia.BuildConfig
-import com.mendelin.catpedia.breed_info.models.BreedImageResponse
-import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
-import com.mendelin.catpedia.welcome_screen.bussiness_logic.models.LoginResponse
+import com.mendelin.catpedia.models.BreedImageResponse
+import com.mendelin.catpedia.models.BreedInfoResponse
+import com.mendelin.catpedia.models.LoginResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.welcome_screen.bussiness_logic.models
+package com.mendelin.catpedia.models
 
 import androidx.annotation.Keep
 import com.squareup.moshi.JsonClass

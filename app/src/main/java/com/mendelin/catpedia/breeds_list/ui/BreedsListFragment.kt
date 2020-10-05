@@ -9,14 +9,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.breeds_list.adapter.BreedsAdapter
 import com.mendelin.catpedia.breeds_list.adapter.MarginItemDecorationVertical
 import com.mendelin.catpedia.breeds_list.adapter.OnImageLoaderListener
-import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
+import com.mendelin.catpedia.models.BreedInfoResponse
 import com.mendelin.catpedia.breeds_list.viewmodel.BreedsViewModel
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory

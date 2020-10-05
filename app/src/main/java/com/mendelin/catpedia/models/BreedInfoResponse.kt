@@ -1,8 +1,7 @@
-package com.mendelin.catpedia.breeds_list.models
+package com.mendelin.catpedia.models
 
 import android.os.Parcelable
 import androidx.annotation.Keep
-import com.mendelin.catpedia.breed_info.models.BreedImageResponse
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 

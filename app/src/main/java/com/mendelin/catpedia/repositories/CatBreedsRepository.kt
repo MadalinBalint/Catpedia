@@ -1,8 +1,8 @@
-package com.mendelin.catpedia.breeds_list.repository
+package com.mendelin.catpedia.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
+import com.mendelin.catpedia.models.BreedInfoResponse
 import com.mendelin.catpedia.retrofit.CatpediaApiService
 import com.mendelin.catpedia.retrofit.Resource
 import io.reactivex.rxjava3.schedulers.Schedulers

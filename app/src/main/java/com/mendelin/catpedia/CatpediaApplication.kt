@@ -1,7 +1,5 @@
 package com.mendelin.catpedia
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatDelegate
 import com.mendelin.catpedia.di.DaggerAppComponent
 import com.mendelin.catpedia.logging.TimberPlant
 import com.mendelin.catpedia.preferences.UserPreferences
@@ -17,19 +15,10 @@ class CatpediaApplication @Inject constructor() : DaggerApplication() {
             .build()
     }
 
-    init {
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-    }
-
-    override fun attachBaseContext(base: Context) {
-        UserPreferences.init(base)
-
-        super.attachBaseContext(base)
-    }
-
     override fun onCreate() {
         super.onCreate()
 
+        UserPreferences.init(this)
         TimberPlant.plantTimberDebugLogger()
     }
 }

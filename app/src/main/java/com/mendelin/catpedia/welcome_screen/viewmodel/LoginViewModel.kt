@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.mendelin.catpedia.BuildConfig
 import com.mendelin.catpedia.retrofit.Resource
-import com.mendelin.catpedia.welcome_screen.bussiness_logic.models.LoginResponse
-import com.mendelin.catpedia.welcome_screen.bussiness_logic.repository.LoginMockupRepository
+import com.mendelin.catpedia.models.LoginResponse
+import com.mendelin.catpedia.repositories.LoginMockupRepository
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 

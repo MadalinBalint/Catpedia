@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.breed_info.models
+package com.mendelin.catpedia.models
 
 import android.os.Parcelable
 import androidx.annotation.Keep

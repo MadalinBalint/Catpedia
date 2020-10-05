@@ -1,11 +1,10 @@
-package com.mendelin.catpedia.repository
+package com.mendelin.catpedia.repositories
 
 import android.content.Context
 import androidx.annotation.Keep
 import com.mendelin.catpedia.utils.ResourceUtils
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import javax.inject.Inject
 
 @Keep
 class LocalRepository<T>(private val moshi: Moshi, private val id: Int, private val classOfT: Class<T>) {

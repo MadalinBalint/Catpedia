@@ -1,8 +1,8 @@
 package com.mendelin.catpedia.di.main
 
-import com.mendelin.catpedia.breed_info.repository.BreedInfoRepository
+import com.mendelin.catpedia.repositories.BreedInfoRepository
 import com.mendelin.catpedia.breeds_list.adapter.BreedsAdapter
-import com.mendelin.catpedia.breeds_list.repository.CatBreedsRepository
+import com.mendelin.catpedia.repositories.CatBreedsRepository
 import com.mendelin.catpedia.retrofit.CatpediaApiService
 import dagger.Module
 import dagger.Provides

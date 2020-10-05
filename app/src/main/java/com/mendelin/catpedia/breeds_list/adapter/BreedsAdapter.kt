@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mendelin.catpedia.ItemBreedListBinding
-import com.mendelin.catpedia.breeds_list.models.BreedInfoResponse
+import com.mendelin.catpedia.models.BreedInfoResponse
 import com.mendelin.catpedia.breeds_list.ui.BreedsListFragmentDirections
 
 internal typealias OnImageLoaderListener = (holder: BreedsAdapter.BreedInfoResponseViewHolder, breed: BreedInfoResponse) -> Unit
