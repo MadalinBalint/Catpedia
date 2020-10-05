@@ -8,10 +8,11 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
-import com.mendelin.catpedia.base_classes.BaseFragment
 import com.mendelin.catpedia.breeds_list.adapter.BreedsAdapter
 import com.mendelin.catpedia.breeds_list.adapter.MarginItemDecorationVertical
 import com.mendelin.catpedia.breeds_list.adapter.OnImageLoaderListener
@@ -20,10 +21,11 @@ import com.mendelin.catpedia.breeds_list.viewmodel.BreedsViewModel
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.utils.ResourceUtils
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_breeds_list.*
 import javax.inject.Inject
 
-class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
+class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
 
     private var internectBroadcastReceiver: BroadcastReceiver? = null
 
@@ -34,12 +36,13 @@ class BreedsListFragment : BaseFragment(R.layout.fragment_breeds_list) {
     lateinit var breedsAdapter: BreedsAdapter
 
     private lateinit var viewModel: BreedsViewModel
-    val searchView: SearchView? by lazy { activity?.findViewById(R.id.searchView) }
+    private val searchView: SearchView? by lazy { activity?.findViewById(R.id.searchView) }
 
     override fun onResume() {
         super.onResume()
 
-        toolbarOn()
+        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+        toolbar.visibility = View.VISIBLE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
