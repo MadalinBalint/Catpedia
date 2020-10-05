@@ -7,7 +7,7 @@
 
         <variable
             name="property"
-            type="com.mendelin.catpedia.breeds_list.models.BreedInfoResponse" />
+            type="com.mendelin.catpedia.models.BreedInfoResponse" />
     </data>
 
     <androidx.cardview.widget.CardView
