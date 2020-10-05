@@ -4,23 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.KeyEvent
+import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.WelcomeScreenDataBinding
-import com.mendelin.catpedia.base_classes.BaseActivity
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.main.MainActivity
 import com.mendelin.catpedia.preferences.UserPreferences
 import com.mendelin.catpedia.utils.ResourceUtils
 import com.mendelin.catpedia.welcome_screen.viewmodel.LoginViewModel
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_welcome_screen.*
 import javax.inject.Inject
 
 
-class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
+class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_screen) {
     companion object {
         private const val SPLASH_TIME_OUT = 2000L
     }
@@ -53,6 +54,14 @@ class WelcomeScreenActivity : BaseActivity(R.layout.activity_welcome_screen) {
         btnLogin.setOnClickListener {
             loginUser()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home ->
+                onBackPressed()
+        }
+        return true
     }
 
     private fun loginUser() {

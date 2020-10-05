@@ -2,15 +2,16 @@ package com.mendelin.catpedia.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import com.mendelin.catpedia.R
-import com.mendelin.catpedia.base_classes.BaseActivity
 import com.mendelin.catpedia.custom_views.AlertBox
 import com.mendelin.catpedia.preferences.UserPreferences
 import com.mendelin.catpedia.welcome_screen.ui.WelcomeScreenActivity
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseActivity(R.layout.activity_main) {
+class MainActivity : DaggerAppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,5 +50,13 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 getString(R.string.alert_cancel)
             )
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home ->
+                onBackPressed()
+        }
+        return true
     }
 }
