@@ -26,8 +26,6 @@ import javax.inject.Inject
 
 class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
 
-    private var internectBroadcastReceiver: BroadcastReceiver? = null
-
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
 
@@ -98,29 +96,8 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
             addItemDecoration(MarginItemDecorationVertical(resources.getDimension(R.dimen.recyclerview_padding).toInt(), resources.getDimension(R.dimen.recyclerview_padding).toInt()))
         }
 
-        /* Broadcast receiver to fetch data when the internet connection is back */
-        if (internectBroadcastReceiver == null) {
-            internectBroadcastReceiver = object : BroadcastReceiver() {
-                override fun onReceive(context: Context?, intent: Intent) {
-                    observeViewModel()
-                }
-            }
-        }
-
-        val intentFilter = IntentFilter()
-        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
-        activity?.registerReceiver(internectBroadcastReceiver, intentFilter)
-
         /* Setup observers */
         observeViewModel()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        internectBroadcastReceiver?.let {
-            activity?.unregisterReceiver(it)
-        }
     }
 
     private fun observeViewModel() {

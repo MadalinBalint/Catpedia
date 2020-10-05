@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.retrofit
+package com.mendelin.catpedia.networking
 
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.constants.Status.ERROR

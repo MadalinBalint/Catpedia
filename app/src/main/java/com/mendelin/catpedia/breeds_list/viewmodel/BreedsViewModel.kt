@@ -2,9 +2,9 @@ package com.mendelin.catpedia.breeds_list.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mendelin.catpedia.repositories.BreedInfoRepository
+import com.mendelin.catpedia.repository.BreedInfoRepository
 import com.mendelin.catpedia.models.BreedInfoResponse
-import com.mendelin.catpedia.repositories.CatBreedsRepository
+import com.mendelin.catpedia.repository.CatBreedsRepository
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList

@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.retrofit
+package com.mendelin.catpedia.networking
 
 import com.mendelin.catpedia.BuildConfig
 import com.mendelin.catpedia.models.BreedImageResponse

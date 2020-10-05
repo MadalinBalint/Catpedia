@@ -1,6 +1,6 @@
-package com.mendelin.catpedia.repositories
+package com.mendelin.catpedia.repository
 
-import com.mendelin.catpedia.retrofit.CatpediaApiNetworkCall
+import com.mendelin.catpedia.networking.CatpediaApiNetworkCall
 import javax.inject.Inject
 
 class BreedInfoRepository @Inject constructor(

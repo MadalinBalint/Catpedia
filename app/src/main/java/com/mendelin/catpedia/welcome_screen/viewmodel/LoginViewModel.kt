@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.mendelin.catpedia.BuildConfig
-import com.mendelin.catpedia.retrofit.Resource
+import com.mendelin.catpedia.networking.Resource
 import com.mendelin.catpedia.models.LoginResponse
-import com.mendelin.catpedia.repositories.LoginMockupRepository
+import com.mendelin.catpedia.repository.LoginMockupRepository
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.repositories
+package com.mendelin.catpedia.repository
 
 import android.content.Context
 import androidx.annotation.Keep

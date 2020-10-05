@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.retrofit
+package com.mendelin.catpedia.networking
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

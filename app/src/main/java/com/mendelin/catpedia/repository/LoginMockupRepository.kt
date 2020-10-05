@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.repositories
+package com.mendelin.catpedia.repository
 
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.models.LoginResponse
