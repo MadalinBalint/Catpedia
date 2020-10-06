@@ -14,7 +14,7 @@ import com.mendelin.catpedia.breeds_list.viewmodel.BreedsViewModel
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.models.BreedInfoResponse
-import com.mendelin.catpedia.utils.ResourceUtils
+import com.mendelin.catpedia.utils.UIHelper
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_breeds_list.*
 import javax.inject.Inject
@@ -113,7 +113,7 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
                                 recyclerBreeds.visibility = View.VISIBLE
                                 progressBreedsList.visibility = View.GONE
                                 searchView?.visibility = View.GONE
-                                ResourceUtils.showErrorAlert(requireContext(), list.message
+                                UIHelper.showErrorAlert(requireContext(), list.message
                                     ?: getString(R.string.alert_error_unknown))
                             }
                             Status.LOADING -> {
@@ -141,7 +141,7 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
         viewModel.getErrorFilter()
             .observe(viewLifecycleOwner, { error ->
                 if (error.isNotEmpty()) {
-                    ResourceUtils.showErrorAlert(requireContext(), error)
+                    UIHelper.showErrorAlert(requireContext(), error)
                     viewModel.getErrorFilter().postValue("")
                 }
             })

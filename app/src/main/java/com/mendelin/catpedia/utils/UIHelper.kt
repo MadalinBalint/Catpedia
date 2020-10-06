@@ -9,12 +9,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.custom_views.AlertBox
-import java.io.ByteArrayOutputStream
-import java.io.IOException
-import java.io.InputStream
 
-object ResourceUtils {
-
+object UIHelper {
 
     fun showErrorAlert(context: Context, msg: String) {
         val alert = AlertBox()

@@ -2,7 +2,6 @@ package com.mendelin.catpedia.welcome_screen.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
@@ -14,7 +13,7 @@ import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.main.MainActivity
 import com.mendelin.catpedia.preferences.UserPreferences
-import com.mendelin.catpedia.utils.ResourceUtils
+import com.mendelin.catpedia.utils.UIHelper
 import com.mendelin.catpedia.welcome_screen.viewmodel.LoginViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_welcome_screen.*
@@ -73,7 +72,7 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
         val password = editUserPassword.text.toString().trim()
 
         if (name.isEmpty() || password.isEmpty()) {
-            ResourceUtils.showErrorAlert(this, getString(R.string.error_empty_field))
+            UIHelper.showErrorAlert(this, getString(R.string.error_empty_field))
             return
         }
 
@@ -90,7 +89,7 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
                         }
                     }
                     Status.ERROR -> {
-                        ResourceUtils.showErrorAlert(this, it.message
+                        UIHelper.showErrorAlert(this, it.message
                             ?: getString(R.string.alert_error_unknown))
                     }
                     Status.LOADING -> {
