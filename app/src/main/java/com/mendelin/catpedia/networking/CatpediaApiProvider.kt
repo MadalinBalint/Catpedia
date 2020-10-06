@@ -7,8 +7,8 @@ import com.mendelin.catpedia.models.BreedInfoResponse
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class CatpediaApiNetworkCall @Inject constructor(
-    private val service: CatpediaApiService
+class CatpediaApiProvider @Inject constructor(
+    private val service: CatpediaApiService,
 ) {
     fun getBreedsList(): LiveData<Resource<List<BreedInfoResponse>>> {
         val breedsList: MutableLiveData<Resource<List<BreedInfoResponse>>> = MutableLiveData()
