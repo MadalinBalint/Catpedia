@@ -14,22 +14,7 @@ import java.io.IOException
 import java.io.InputStream
 
 object ResourceUtils {
-    fun readTextFile(inputStream: InputStream): String {
-        val outputStream = ByteArrayOutputStream()
 
-        val buf = ByteArray(4096)
-        var len = 0
-        try {
-            while ({ len = inputStream.read(buf); len }() != -1) {
-                outputStream.write(buf, 0, len)
-            }
-            outputStream.close()
-            inputStream.close()
-        } catch (e: IOException) {
-        }
-
-        return outputStream.toString()
-    }
 
     fun showErrorAlert(context: Context, msg: String) {
         val alert = AlertBox()
