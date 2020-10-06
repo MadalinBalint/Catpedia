@@ -2,9 +2,12 @@ package com.mendelin.catpedia.di.main
 
 import com.mendelin.catpedia.repository.BreedInfoRepository
 import com.mendelin.catpedia.breeds_list.adapter.BreedsAdapter
+import com.mendelin.catpedia.local_data_source.JsonStorage
 import com.mendelin.catpedia.repository.CatBreedsRepository
 import com.mendelin.catpedia.networking.CatpediaApiNetworkCall
 import com.mendelin.catpedia.networking.CatpediaApiService
+import com.mendelin.catpedia.repository.MockedLoginRepository
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

@@ -1,10 +1,5 @@
 package com.mendelin.catpedia.breeds_list.ui
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
@@ -15,10 +10,10 @@ import com.mendelin.catpedia.R
 import com.mendelin.catpedia.breeds_list.adapter.BreedsAdapter
 import com.mendelin.catpedia.breeds_list.adapter.MarginItemDecorationVertical
 import com.mendelin.catpedia.breeds_list.adapter.OnImageLoaderListener
-import com.mendelin.catpedia.models.BreedInfoResponse
 import com.mendelin.catpedia.breeds_list.viewmodel.BreedsViewModel
 import com.mendelin.catpedia.constants.Status
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
+import com.mendelin.catpedia.models.BreedInfoResponse
 import com.mendelin.catpedia.utils.ResourceUtils
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_breeds_list.*
