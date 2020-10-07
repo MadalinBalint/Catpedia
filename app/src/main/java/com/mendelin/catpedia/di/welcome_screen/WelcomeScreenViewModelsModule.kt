@@ -2,7 +2,7 @@ package com.mendelin.catpedia.di.welcome_screen
 
 import androidx.lifecycle.ViewModel
 import com.mendelin.catpedia.di.viewmodels.ViewModelKey
-import com.mendelin.catpedia.welcome_screen.viewmodel.LoginViewModel
+import com.mendelin.catpedia.viewmodels.LoginViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

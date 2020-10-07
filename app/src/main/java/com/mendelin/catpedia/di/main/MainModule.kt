@@ -1,9 +1,7 @@
 package com.mendelin.catpedia.di.main
 
-import com.mendelin.catpedia.breeds_list.adapter.BreedsAdapter
-import com.mendelin.catpedia.networking.CatpediaApiProvider
+import com.mendelin.catpedia.adapter.breeds_list.BreedsAdapter
 import com.mendelin.catpedia.networking.CatpediaApiService
-import com.mendelin.catpedia.repository.BreedInfoRepository
 import com.mendelin.catpedia.repository.CatBreedsRepository
 import dagger.Module
 import dagger.Provides
@@ -18,18 +16,8 @@ class MainModule {
 
     @MainScope
     @Provides
-    fun provideRestApiProvider(service: CatpediaApiService): CatpediaApiProvider =
-        CatpediaApiProvider(service)
-
-    @MainScope
-    @Provides
-    fun provideBreedInfoRepository(apiProvider: CatpediaApiProvider): BreedInfoRepository =
-        BreedInfoRepository(apiProvider)
-
-    @MainScope
-    @Provides
-    fun provideCatBreedsRepository(apiProvider: CatpediaApiProvider): CatBreedsRepository =
-        CatBreedsRepository(apiProvider)
+    fun provideCatBreedsRepository(apiService: CatpediaApiService): CatBreedsRepository =
+        CatBreedsRepository(apiService)
 
     @MainScope
     @Provides
