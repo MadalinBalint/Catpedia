@@ -7,10 +7,10 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import com.mendelin.catpedia.R
-import com.mendelin.catpedia.viewmodels.BreedsViewModel
-import com.mendelin.catpedia.ui.custom_views.AlertBox
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.preferences.UserPreferences
+import com.mendelin.catpedia.ui.custom_views.AlertBox
+import com.mendelin.catpedia.viewmodels.BreedsViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -21,7 +21,6 @@ class MainActivity : DaggerAppCompatActivity(R.layout.activity_main), ActivityCa
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
 
-    private val searchView: SearchView by lazy { findViewById(R.id.searchView) }
     private val breedsViewModel: BreedsViewModel by viewModels { providerFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {

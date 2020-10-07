@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.adapter.breeds_list.BreedsAdapter
 import com.mendelin.catpedia.adapter.breeds_list.MarginItemDecorationVertical
-import com.mendelin.catpedia.ui.custom_views.AlertBox
 import com.mendelin.catpedia.databinding.FragmentBreedsListBinding
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.ui.activity.ActivityCallback
+import com.mendelin.catpedia.ui.custom_views.AlertBox
 import com.mendelin.catpedia.viewmodels.BreedsViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
