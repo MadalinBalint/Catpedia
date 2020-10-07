@@ -4,13 +4,14 @@ import com.mendelin.catpedia.BuildConfig
 import com.mendelin.catpedia.models.BreedImageResponse
 import com.mendelin.catpedia.models.BreedInfoResponse
 import com.mendelin.catpedia.models.LoginResponse
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CatpediaApiService {
     @GET(BuildConfig.ENDPOINT_BREEDS)
-    fun getListOfCatBreeds(): Single<List<BreedInfoResponse>>
+    fun getListOfCatBreeds(): Observable<List<BreedInfoResponse>>
 
     @GET(BuildConfig.ENDPOINT_SEARCH)
     fun getBreedImage(@Query(BuildConfig.QUERY_BREED_ID) breedId: String,

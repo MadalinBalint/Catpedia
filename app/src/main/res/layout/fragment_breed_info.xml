@@ -9,7 +9,7 @@
 
         <variable
             name="args"
-            type="com.mendelin.catpedia.breed_info.ui.BreedInfoFragmentArgs" />
+            type="com.mendelin.catpedia.ui.fragments.BreedInfoFragmentArgs" />
     </data>
 
     <ScrollView
@@ -20,7 +20,7 @@
         android:background="@android:color/white"
         android:fillViewport="true"
         android:scrollbars="vertical"
-        tools:context=".breed_info.ui.BreedInfoFragment">
+        tools:context=".ui.fragments.BreedInfoFragment">
 
         <LinearLayout
             android:id="@+id/layoutPages"

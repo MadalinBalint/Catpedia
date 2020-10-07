@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        tools:context=".welcome_screen.ui.WelcomeScreenActivity">
+        tools:context=".ui.activity.WelcomeScreenActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

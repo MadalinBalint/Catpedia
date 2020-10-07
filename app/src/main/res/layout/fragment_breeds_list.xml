@@ -9,7 +9,7 @@
         android:background="@android:color/white"
         android:fillViewport="true"
         android:scrollbars="vertical"
-        tools:context=".breeds_list.ui.BreedsListFragment">
+        tools:context=".ui.fragments.BreedsListFragment">
 
         <FrameLayout
             android:layout_width="match_parent"

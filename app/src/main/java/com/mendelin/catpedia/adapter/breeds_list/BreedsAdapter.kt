@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mendelin.catpedia.ItemBreedListBinding
 import com.mendelin.catpedia.models.BreedInfoResponse
-import com.mendelin.catpedia.ui.BreedsListFragmentDirections
+import com.mendelin.catpedia.ui.fragments.BreedsListFragmentDirections
 
 class BreedsAdapter : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResponseViewHolder>(
     DiffCallbackBreedsAdapter
