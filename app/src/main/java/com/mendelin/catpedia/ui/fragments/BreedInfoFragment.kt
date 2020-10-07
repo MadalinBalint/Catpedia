@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.breed_info.ui
+package com.mendelin.catpedia.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mendelin.catpedia.BreedInfoDataBinding
 import com.mendelin.catpedia.R
+import com.mendelin.catpedia.ui.BreedInfoFragmentArgs
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_breed_info.*
 
@@ -35,7 +36,7 @@ class BreedInfoFragment : DaggerFragment(R.layout.fragment_breed_info) {
         super.onViewCreated(view, savedInstanceState)
 
         btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
     }
 }

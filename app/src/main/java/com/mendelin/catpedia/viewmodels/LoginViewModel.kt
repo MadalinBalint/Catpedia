@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.welcome_screen.viewmodel
+package com.mendelin.catpedia.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

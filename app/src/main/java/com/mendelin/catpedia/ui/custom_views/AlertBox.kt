@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.custom_views
+package com.mendelin.catpedia.ui.custom_views
 
 import android.content.Context
 import android.content.DialogInterface

@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.breeds_list.adapter
+package com.mendelin.catpedia.adapter.breeds_list
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,13 +10,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mendelin.catpedia.ItemBreedListBinding
 import com.mendelin.catpedia.models.BreedInfoResponse
-import com.mendelin.catpedia.breeds_list.ui.BreedsListFragmentDirections
+import com.mendelin.catpedia.ui.BreedsListFragmentDirections
 
-internal typealias OnImageLoaderListener = (holder: BreedsAdapter.BreedInfoResponseViewHolder, breed: BreedInfoResponse) -> Unit
-
-class BreedsAdapter : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResponseViewHolder>(DiffCallbackBreedsAdapter) {
-
-    private var listener: OnImageLoaderListener? = null
+class BreedsAdapter : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResponseViewHolder>(
+    DiffCallbackBreedsAdapter
+) {
     private val breedsList: ArrayList<BreedInfoResponse> = arrayListOf()
     lateinit var context: Context
 
@@ -46,10 +44,6 @@ class BreedsAdapter : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResp
         val breed = breedsList[position]
         holder.bind(breed)
 
-        if (breed.image == null) {
-            listener?.invoke(holder, breed)
-        }
-
         holder.binding.breedCard.setOnClickListener {
             val action = BreedsListFragmentDirections.actionBreedInfo(
                 breed.image?.url ?: "",
@@ -77,9 +71,5 @@ class BreedsAdapter : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResp
 
         submitList(breedsList)
         notifyDataSetChanged()
-    }
-
-    fun addListener(listener: OnImageLoaderListener?) {
-        this.listener = listener
     }
 }

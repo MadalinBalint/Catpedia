@@ -1,17 +1,28 @@
-package com.mendelin.catpedia.main
+package com.mendelin.catpedia.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import androidx.activity.viewModels
+import androidx.appcompat.widget.SearchView
 import com.mendelin.catpedia.R
-import com.mendelin.catpedia.custom_views.AlertBox
+import com.mendelin.catpedia.viewmodels.BreedsViewModel
+import com.mendelin.catpedia.ui.custom_views.AlertBox
+import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.preferences.UserPreferences
-import com.mendelin.catpedia.welcome_screen.ui.WelcomeScreenActivity
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 
-class MainActivity : DaggerAppCompatActivity(R.layout.activity_main) {
+class MainActivity : DaggerAppCompatActivity(R.layout.activity_main), ActivityCallback {
+
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+
+    private val searchView: SearchView by lazy { findViewById(R.id.searchView) }
+    private val breedsViewModel: BreedsViewModel by viewModels { providerFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +37,20 @@ class MainActivity : DaggerAppCompatActivity(R.layout.activity_main) {
                 setDisplayHomeAsUpEnabled(false)
             }
         }
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                breedsViewModel.filter(query?.trim() ?: "")
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText?.isEmpty() == true) {
+                    breedsViewModel.filter("")
+                }
+                return false
+            }
+        })
 
         btnLogout.setOnClickListener {
             val alert = AlertBox()
@@ -43,7 +68,8 @@ class MainActivity : DaggerAppCompatActivity(R.layout.activity_main) {
                 dialog.dismiss()
             }
 
-            alert.showAlert(this,
+            alert.showAlert(
+                this,
                 getString(R.string.alert_warning),
                 getString(R.string.alert_logout),
                 getString(R.string.alert_ok),
@@ -54,9 +80,16 @@ class MainActivity : DaggerAppCompatActivity(R.layout.activity_main) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home ->
-                onBackPressed()
+            android.R.id.home -> onBackPressed()
         }
         return true
     }
+
+    override fun showSearchBar(isShow: Boolean) {
+        searchView.visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+}
+
+interface ActivityCallback {
+    fun showSearchBar(isShow: Boolean)
 }

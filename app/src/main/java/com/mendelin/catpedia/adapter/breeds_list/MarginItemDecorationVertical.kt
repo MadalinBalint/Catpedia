@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.breeds_list.adapter
+package com.mendelin.catpedia.adapter.breeds_list
 
 import android.graphics.Rect
 import android.view.View

@@ -1,5 +1,6 @@
-package com.mendelin.catpedia.welcome_screen.ui
+package com.mendelin.catpedia.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -10,11 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.WelcomeScreenDataBinding
 import com.mendelin.catpedia.constants.Status
+import com.mendelin.catpedia.ui.custom_views.AlertBox
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
-import com.mendelin.catpedia.main.MainActivity
 import com.mendelin.catpedia.preferences.UserPreferences
-import com.mendelin.catpedia.utils.UIHelper
-import com.mendelin.catpedia.welcome_screen.viewmodel.LoginViewModel
+import com.mendelin.catpedia.viewmodels.LoginViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_welcome_screen.*
 import kotlinx.coroutines.GlobalScope
@@ -72,7 +72,7 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
         val password = editUserPassword.text.toString().trim()
 
         if (name.isEmpty() || password.isEmpty()) {
-            UIHelper.showErrorAlert(this, getString(R.string.error_empty_field))
+            showErrorAlert(this, getString(R.string.error_empty_field))
             return
         }
 
@@ -89,8 +89,10 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
                         }
                     }
                     Status.ERROR -> {
-                        UIHelper.showErrorAlert(this, it.message
-                            ?: getString(R.string.alert_error_unknown))
+                        showErrorAlert(
+                            this, it.message
+                                ?: getString(R.string.alert_error_unknown)
+                        )
                     }
                     Status.LOADING -> {
                     }
@@ -104,5 +106,21 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
         finish()
+    }
+
+    private fun showErrorAlert(context: Context, msg: String) {
+        val alert = AlertBox()
+
+        alert.setPositiveButtonListener { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.showAlert(
+            context,
+            context.getString(R.string.alert_error),
+            msg,
+            context.getString(R.string.alert_ok),
+            null
+        )
     }
 }
