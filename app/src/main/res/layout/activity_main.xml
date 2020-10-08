@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -25,9 +26,9 @@
                 android:layout_marginEnd="96dp"
                 android:editTextColor="@android:color/darker_gray"
                 android:queryHint="Search by country name"
-                app:iconifiedByDefault="true"
+                android:textColorHint="@android:color/black"
                 app:defaultQueryHint="Search by country name"
-                android:textColorHint="@android:color/black" />
+                app:iconifiedByDefault="true" />
 
             <Button
                 android:id="@+id/btnLogout"

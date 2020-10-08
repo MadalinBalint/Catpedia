@@ -7,26 +7,31 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import com.mendelin.catpedia.R
+import com.mendelin.catpedia.databinding.ActivityMainBinding
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.preferences.UserPreferences
 import com.mendelin.catpedia.ui.custom_views.AlertBox
 import com.mendelin.catpedia.viewmodels.BreedsViewModel
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 
-class MainActivity : DaggerAppCompatActivity(R.layout.activity_main), ActivityCallback {
+class MainActivity : DaggerAppCompatActivity(), ActivityCallback {
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
+
+    private lateinit var binding: ActivityMainBinding
 
     private val breedsViewModel: BreedsViewModel by viewModels { providerFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setSupportActionBar(toolbar)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
 
         supportActionBar?.let {
             with(it) {
@@ -37,7 +42,7 @@ class MainActivity : DaggerAppCompatActivity(R.layout.activity_main), ActivityCa
             }
         }
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 breedsViewModel.filter(query?.trim() ?: "")
                 return false
@@ -51,29 +56,29 @@ class MainActivity : DaggerAppCompatActivity(R.layout.activity_main), ActivityCa
             }
         })
 
-        btnLogout.setOnClickListener {
-            val alert = AlertBox()
+        binding.btnLogout.setOnClickListener {
+            AlertBox().apply {
+                setPositiveButtonListener { _, _ ->
+                    UserPreferences.logOutUser()
 
-            alert.setPositiveButtonListener { _, _ ->
-                UserPreferences.logOutUser()
+                    val intent = Intent(this, WelcomeScreenActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                    finish()
+                }
 
-                val intent = Intent(this, WelcomeScreenActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(intent)
-                finish()
+                setNegativeButtonListener { dialog, _ ->
+                    dialog.dismiss()
+                }
+
+                showAlert(
+                    this,
+                    getString(R.string.alert_warning),
+                    getString(R.string.alert_logout),
+                    getString(R.string.alert_ok),
+                    getString(R.string.alert_cancel)
+                )
             }
-
-            alert.setNegativeButtonListener { dialog, _ ->
-                dialog.dismiss()
-            }
-
-            alert.showAlert(
-                this,
-                getString(R.string.alert_warning),
-                getString(R.string.alert_logout),
-                getString(R.string.alert_ok),
-                getString(R.string.alert_cancel)
-            )
         }
     }
 
@@ -84,11 +89,16 @@ class MainActivity : DaggerAppCompatActivity(R.layout.activity_main), ActivityCa
         return true
     }
 
-    override fun showSearchBar(isShow: Boolean) {
-        searchView.visibility = if (isShow) View.VISIBLE else View.GONE
+    override fun showSearchBar(isShown: Boolean) {
+        binding.searchView.visibility = if (isShown) View.VISIBLE else View.GONE
+    }
+
+    override fun showToolbar(isShown: Boolean) {
+        binding.toolbar.visibility = if (isShown) View.VISIBLE else View.GONE
     }
 }
 
 interface ActivityCallback {
-    fun showSearchBar(isShow: Boolean)
+    fun showSearchBar(isShown: Boolean)
+    fun showToolbar(isShown: Boolean)
 }

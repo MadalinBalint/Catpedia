@@ -9,7 +9,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.mendelin.catpedia.R
-import com.mendelin.catpedia.WelcomeScreenDataBinding
+import com.mendelin.catpedia.WelcomeScreenBinding
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.preferences.UserPreferences
 import com.mendelin.catpedia.ui.custom_views.AlertBox
@@ -17,19 +17,18 @@ import com.mendelin.catpedia.viewmodels.LoginViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.activity_welcome_screen.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_screen) {
+class WelcomeScreenActivity : DaggerAppCompatActivity() {
     companion object {
-        private const val SPLASH_TIME_OUT = 2000L
+        private const val SPLASH_TIME_OUT = 1500L
     }
 
-    lateinit var binding: WelcomeScreenDataBinding
+    lateinit var binding: WelcomeScreenBinding
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
@@ -52,14 +51,14 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
         }
 
         /* Pressing Enter/Done on soft keyboard triggers the Login button */
-        editUserPassword.setOnEditorActionListener { _, actionId, event ->
+        binding.editUserPassword.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
-                btnLogin.performClick()
+                binding.btnLogin.performClick()
             }
             false
         }
 
-        btnLogin.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             loginUser()
         }
     }
@@ -73,8 +72,8 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
     }
 
     private fun loginUser() {
-        val name = editUserName.text.toString().trim()
-        val password = editUserPassword.text.toString().trim()
+        val name = binding.editUserName.text.toString().trim()
+        val password = binding.editUserPassword.text.toString().trim()
 
         if (name.isEmpty() || password.isEmpty()) {
             showErrorAlert(this, getString(R.string.error_empty_field))
@@ -107,23 +106,23 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
     }
 
     private fun showErrorAlert(context: Context, msg: String) {
-        val alert = AlertBox()
+        AlertBox().apply {
+            setPositiveButtonListener { dialog, _ ->
+                dialog.dismiss()
+            }
 
-        alert.setPositiveButtonListener { dialog, _ ->
-            dialog.dismiss()
+            showAlert(
+                context,
+                context.getString(R.string.alert_error),
+                msg,
+                context.getString(R.string.alert_ok),
+                null
+            )
         }
-
-        alert.showAlert(
-            context,
-            context.getString(R.string.alert_error),
-            msg,
-            context.getString(R.string.alert_ok),
-            null
-        )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         disposables.clear()
     }
 }

@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.adapter.BreedsAdapter
-import com.mendelin.catpedia.ui.custom_views.MarginItemDecorationVertical
 import com.mendelin.catpedia.databinding.FragmentBreedsListBinding
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.ui.activity.ActivityCallback
 import com.mendelin.catpedia.ui.custom_views.AlertBox
+import com.mendelin.catpedia.ui.custom_views.MarginItemDecorationVertical
 import com.mendelin.catpedia.viewmodels.BreedsViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -50,8 +49,7 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
     override fun onResume() {
         super.onResume()
 
-        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
-        toolbar.visibility = View.VISIBLE
+        activityCallback?.showToolbar(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,18 +106,18 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
     }
 
     private fun showErrorAlert(context: Context, msg: String) {
-        val alert = AlertBox()
+        AlertBox().apply {
+            setPositiveButtonListener { dialog, _ ->
+                dialog.dismiss()
+            }
 
-        alert.setPositiveButtonListener { dialog, _ ->
-            dialog.dismiss()
+            showAlert(
+                context,
+                context.getString(R.string.alert_error),
+                msg,
+                context.getString(R.string.alert_ok),
+                null
+            )
         }
-
-        alert.showAlert(
-            context,
-            context.getString(R.string.alert_error),
-            msg,
-            context.getString(R.string.alert_ok),
-            null
-        )
     }
 }
