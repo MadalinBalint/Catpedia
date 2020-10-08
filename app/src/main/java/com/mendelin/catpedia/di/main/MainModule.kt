@@ -3,6 +3,10 @@ package com.mendelin.catpedia.di.main
 import com.mendelin.catpedia.adapter.BreedsAdapter
 import com.mendelin.catpedia.networking.CatpediaApiService
 import com.mendelin.catpedia.repository.CatBreedsRepository
+import com.mendelin.catpedia.repository.local.JsonStorage
+import com.mendelin.catpedia.repository.local.MockedLoginResponse
+import com.mendelin.catpedia.repository.remote.CatpediaRemoteApiService
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -11,13 +15,13 @@ import retrofit2.Retrofit
 class MainModule {
     @MainScope
     @Provides
-    fun provideRestApi(retrofit: Retrofit): CatpediaApiService =
+    fun provideApiService(retrofit: Retrofit): CatpediaApiService =
         retrofit.create(CatpediaApiService::class.java)
 
     @MainScope
     @Provides
-    fun provideCatBreedsRepository(apiService: CatpediaApiService): CatBreedsRepository =
-        CatBreedsRepository(apiService)
+    fun provideCatBreedsRepository(remoteService: CatpediaRemoteApiService): CatBreedsRepository =
+        CatBreedsRepository(remoteService)
 
     @MainScope
     @Provides

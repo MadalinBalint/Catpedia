@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 
 @BindingAdapter("catImage")
 /* Binding adapter for the cat image in breeds list */
-fun bindImage(imgView: ImageView, imageUrl: String?) {
+fun bindCatImage(imgView: ImageView, imageUrl: String?) {
     imageUrl?.let {
         val circularProgressDrawable = CircularProgressDrawable(imgView.context)
         circularProgressDrawable.strokeWidth = 6f

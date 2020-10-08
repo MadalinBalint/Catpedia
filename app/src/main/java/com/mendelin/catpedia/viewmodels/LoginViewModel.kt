@@ -2,12 +2,12 @@ package com.mendelin.catpedia.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.mendelin.catpedia.repository.CatpediaApiMockedProvider
+import com.mendelin.catpedia.repository.MockedRepository
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    private val provider: CatpediaApiMockedProvider
+    private val repository: MockedRepository
 ) : ViewModel() {
     fun loginUser(context: Context, name: String, password: String) =
-        provider.mockedUserLogin(context, name, password)
+        repository.mockedUserLogin(context, name, password)
 }
