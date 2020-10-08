@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.WelcomeScreenDataBinding
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
@@ -33,6 +33,8 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
+
+    private val viewModel: LoginViewModel by viewModels { providerFactory }
 
     private val disposables = CompositeDisposable()
 
@@ -79,21 +81,19 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
             return
         }
 
-        val viewModel = ViewModelProvider(this, providerFactory).get(LoginViewModel::class.java)
-
         disposables.add(
             viewModel.loginUser(this, name, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {
-                        val user = it.data
+                    { reponse ->
+                        val user = reponse.data
                         if (user != null) {
                             UserPreferences.logInUser(user)
                             loadMainScreen()
                         }
                     },
-                    {
-                        showErrorAlert(this, it.message ?: "Unknown error")
+                    { throwable ->
+                        showErrorAlert(this, throwable.message ?: "Unknown error")
                     }
                 )
         )
