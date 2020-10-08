@@ -1,6 +1,10 @@
 package com.mendelin.catpedia.di
 
 import com.mendelin.catpedia.BuildConfig
+import com.mendelin.catpedia.networking.CatpediaApiService
+import com.mendelin.catpedia.repository.CatBreedsRepository
+import com.mendelin.catpedia.repository.local.MockedLoginResponse
+import com.mendelin.catpedia.repository.remote.CatpediaRemoteApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -46,4 +50,19 @@ class AppModule {
             .client(okHttpClient)
             .build()
     }
+
+    @Singleton
+    @Provides
+    fun provideApiService(retrofit: Retrofit): CatpediaApiService =
+        retrofit.create(CatpediaApiService::class.java)
+
+    /*@Singleton
+    @Provides
+    fun provideRemoteApiService(service: CatpediaApiService, response: MockedLoginResponse): CatpediaRemoteApiService =
+        CatpediaRemoteApiService(service, response)
+
+    @Singleton
+    @Provides
+    fun provideCatBreedsRepository(remoteService: CatpediaRemoteApiService): CatBreedsRepository =
+        CatBreedsRepository(remoteService)*/
 }
