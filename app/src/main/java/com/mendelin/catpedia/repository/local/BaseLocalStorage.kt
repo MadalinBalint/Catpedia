@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.local_data_source
+package com.mendelin.catpedia.repository.local
 
 import android.content.Context
 import androidx.annotation.Keep

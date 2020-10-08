@@ -1,7 +1,7 @@
 package com.mendelin.catpedia.di.welcome_screen
 
-import com.mendelin.catpedia.local_data_source.JsonStorage
-import com.mendelin.catpedia.networking.CatpediaApiMockedProvider
+import com.mendelin.catpedia.repository.local.JsonStorage
+import com.mendelin.catpedia.repository.CatpediaApiMockedProvider
 import com.mendelin.catpedia.repository.MockedLoginRepository
 import com.squareup.moshi.Moshi
 import dagger.Module

@@ -9,8 +9,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mendelin.catpedia.R
-import com.mendelin.catpedia.adapter.breeds_list.BreedsAdapter
-import com.mendelin.catpedia.adapter.breeds_list.MarginItemDecorationVertical
+import com.mendelin.catpedia.adapter.BreedsAdapter
+import com.mendelin.catpedia.ui.custom_views.MarginItemDecorationVertical
 import com.mendelin.catpedia.databinding.FragmentBreedsListBinding
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.ui.activity.ActivityCallback

@@ -2,7 +2,7 @@ package com.mendelin.catpedia.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.mendelin.catpedia.networking.CatpediaApiMockedProvider
+import com.mendelin.catpedia.repository.CatpediaApiMockedProvider
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(

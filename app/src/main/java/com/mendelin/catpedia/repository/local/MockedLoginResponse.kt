@@ -2,7 +2,7 @@ package com.mendelin.catpedia.repository
 
 import android.content.Context
 import com.mendelin.catpedia.BuildConfig
-import com.mendelin.catpedia.local_data_source.JsonStorage
+import com.mendelin.catpedia.repository.local.JsonStorage
 import com.mendelin.catpedia.models.LoginResponse
 import javax.inject.Inject
 

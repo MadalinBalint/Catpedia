@@ -1,6 +1,6 @@
 package com.mendelin.catpedia.di.main
 
-import com.mendelin.catpedia.adapter.breeds_list.BreedsAdapter
+import com.mendelin.catpedia.adapter.BreedsAdapter
 import com.mendelin.catpedia.networking.CatpediaApiService
 import com.mendelin.catpedia.repository.CatBreedsRepository
 import dagger.Module

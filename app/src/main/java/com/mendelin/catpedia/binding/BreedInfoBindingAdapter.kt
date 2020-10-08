@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.adapter.breed_info
+package com.mendelin.catpedia.binding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
