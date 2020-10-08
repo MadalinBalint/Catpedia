@@ -1,13 +1,10 @@
 package com.mendelin.catpedia.repository.remote
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.mendelin.catpedia.models.BreedImageResponse
 import com.mendelin.catpedia.models.BreedInfoResponse
 import com.mendelin.catpedia.models.LoginResponse
 import com.mendelin.catpedia.networking.CatpediaApiService
-import com.mendelin.catpedia.networking.Resource
 import com.mendelin.catpedia.repository.local.MockedLoginResponse
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -32,27 +29,12 @@ class CatpediaRemoteApiService @Inject constructor(
     private fun getBreedImage(breedId: String): Single<List<BreedImageResponse>> =
         service.getBreedImage(breedId)
 
-    fun mockedUserLogin(
-        context: Context,
-        name: String,
-        password: String
-    ): LiveData<Resource<LoginResponse>> {
-        val loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
-
-        loginResponse.postValue(Resource.loading(data = null))
-
-        try {
+    fun mockedUserLogin(context: Context, name: String, password: String): Single<LoginResponse> {
+        return try {
             val data = response.getLoginRespone(context, name, password)
-            loginResponse.postValue(Resource.success(data))
-        } catch (exception: Exception) {
-            loginResponse.postValue(
-                Resource.error(
-                    data = null,
-                    message = exception.message ?: "Error Occurred!"
-                )
-            )
+            Single.just(data)
+        } catch (e: Exception) {
+            Single.error(Throwable(e.message))
         }
-
-        return loginResponse
     }
 }

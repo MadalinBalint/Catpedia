@@ -10,12 +10,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.mendelin.catpedia.R
 import com.mendelin.catpedia.WelcomeScreenDataBinding
-import com.mendelin.catpedia.constants.Status
-import com.mendelin.catpedia.ui.custom_views.AlertBox
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.preferences.UserPreferences
+import com.mendelin.catpedia.ui.custom_views.AlertBox
 import com.mendelin.catpedia.viewmodels.LoginViewModel
 import dagger.android.support.DaggerAppCompatActivity
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_welcome_screen.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -32,6 +33,8 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
+
+    private val disposables = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,27 +81,22 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
 
         val viewModel = ViewModelProvider(this, providerFactory).get(LoginViewModel::class.java)
 
-        viewModel.loginUser(this, name, password).observe(this, {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        val response = it.data
-                        if (response?.data != null) {
-                            UserPreferences.logInUser(response.data!!)
+        disposables.add(
+            viewModel.loginUser(this, name, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        val user = it.data
+                        if (user != null) {
+                            UserPreferences.logInUser(user)
                             loadMainScreen()
                         }
+                    },
+                    {
+                        showErrorAlert(this, it.message ?: "Unknown error")
                     }
-                    Status.ERROR -> {
-                        showErrorAlert(
-                            this, it.message
-                                ?: getString(R.string.alert_error_unknown)
-                        )
-                    }
-                    Status.LOADING -> {
-                    }
-                }
-            }
-        })
+                )
+        )
     }
 
     private fun loadMainScreen() {
@@ -122,5 +120,10 @@ class WelcomeScreenActivity : DaggerAppCompatActivity(R.layout.activity_welcome_
             context.getString(R.string.alert_ok),
             null
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.clear()
     }
 }

@@ -25,15 +25,16 @@ class BreedsViewModel @Inject constructor(
         disposables.add(
             breedsRepository.getCatBreeds()
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess { list ->
-                    isLoading.value = false
-                    setOriginalBreedList(list)
-                }
-                .doOnError { throwable ->
-                    isLoading.value = false
-                    error.value = throwable.message
-                }
-                .subscribe()
+                .subscribe(
+                    { list ->
+                        isLoading.value = false
+                        setOriginalBreedList(list)
+                    },
+                    { throwable ->
+                        isLoading.value = false
+                        error.value = throwable.message
+                    }
+                )
         )
     }
 
@@ -55,7 +56,8 @@ class BreedsViewModel @Inject constructor(
             if (query.isNotEmpty()) {
                 val filteredList = originalBreedList.filter {
                     it.origin?.toLowerCase(Locale.ROOT) == query.toLowerCase(Locale.ROOT) ||
-                            it.origin?.toLowerCase(Locale.ROOT)?.indexOf(query.toLowerCase(Locale.ROOT))!! >= 0
+                            it.origin?.toLowerCase(Locale.ROOT)
+                                ?.indexOf(query.toLowerCase(Locale.ROOT))!! >= 0
                 }
 
                 if (filteredList.isEmpty()) {
