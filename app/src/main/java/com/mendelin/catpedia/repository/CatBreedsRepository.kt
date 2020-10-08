@@ -12,7 +12,7 @@ class CatBreedsRepository @Inject constructor(private val service: CatpediaApiSe
     fun getCatBreeds(): Single<List<BreedInfoResponse>> {
         return service.getListOfCatBreeds()
             .subscribeOn(Schedulers.io())
-            .flatMapIterable { list -> list }
+            .flatMapIterable { it }
             .flatMapSingle { breed ->
                 getBreedImage(breed.id)
                     .map { imageList -> breed.image = imageList?.firstOrNull() }
@@ -21,5 +21,6 @@ class CatBreedsRepository @Inject constructor(private val service: CatpediaApiSe
             .toList()
     }
 
-    private fun getBreedImage(breedId: String): Single<List<BreedImageResponse>> = service.getBreedImage(breedId)
+    private fun getBreedImage(breedId: String): Single<List<BreedImageResponse>> =
+        service.getBreedImage(breedId)
 }
