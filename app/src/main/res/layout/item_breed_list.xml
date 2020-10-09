@@ -22,63 +22,66 @@
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            app:layout_constraintBottom_toBottomOf="@+id/txtBreedName"
+            app:layout_constraintTop_toBottomOf="@+id/txtBreedName">
 
             <!--Cat breed image -->
             <ImageView
                 android:id="@+id/imgBreed"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
+                android:layout_marginEnd="16dp"
                 android:adjustViewBounds="true"
                 android:transitionName="catImage"
-                app:imageUrl="@{property.image.url}" />
+                app:imageUrl="@{property.image.url}"
+                app:layout_constraintEnd_toStartOf="@+id/txtBreedName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+
+            <!-- Name -->
+            <TextView
+                android:id="@+id/txtBreedName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/montserrat_500_medium"
+                android:includeFontPadding="false"
+                android:text="@{property.name}"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/txtBreedDescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgBreed"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Abyssinian" />
 
-                <!-- Name -->
-                <TextView
-                    android:id="@+id/txtBreedName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/montserrat_500_medium"
-                    android:includeFontPadding="false"
-                    android:text="@{property.name}"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    tools:text="Abyssinian" />
+            <!-- Description -->
+            <TextView
+                android:id="@+id/txtBreedDescription"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_400_regular"
+                android:includeFontPadding="false"
+                android:maxLines="4"
+                android:text="@{property.description}"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txtBreedName"
+                app:layout_constraintStart_toStartOf="@+id/txtBreedName"
+                app:layout_constraintTop_toBottomOf="@+id/txtBreedName"
+                tools:text="The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals." />
 
-                <!-- Description -->
-                <TextView
-                    android:id="@+id/txtBreedDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/montserrat_400_regular"
-                    android:includeFontPadding="false"
-                    android:maxLines="4"
-                    android:text="@{property.description}"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    tools:text="The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals." />
 
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
