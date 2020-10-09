@@ -123,6 +123,6 @@ class WelcomeScreenActivity : DaggerAppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        disposables.clear()
+        disposables.dispose()
     }
 }
