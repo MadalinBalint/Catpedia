@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mendelin.catpedia.models.BreedInfoResponse
-import com.mendelin.catpedia.repository.CatBreedsRepository
+import com.mendelin.catpedia.repository.CatpediaRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.*
@@ -12,7 +12,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class BreedsViewModel @Inject constructor(
-    private val breedsRepository: CatBreedsRepository
+    private val breedsRepository: CatpediaRepository
 ) : ViewModel() {
     private val originalBreedList: ArrayList<BreedInfoResponse> = arrayListOf()
     private val breedsList = MutableLiveData<ArrayList<BreedInfoResponse>>()

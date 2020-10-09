@@ -44,20 +44,22 @@ class BreedsAdapter : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResp
         val breed = breedsList[position]
         holder.bind(breed)
 
-        holder.binding.breedCard.setOnClickListener {
-            val action = BreedsListFragmentDirections.actionBreedInfo(
-                breed.image?.url ?: "",
-                breed.name,
-                breed.description ?: "",
-                String.format("%s (%s)", breed.origin, breed.country_code),
-                breed.temperament ?: "",
-                breed.wikipedia_url ?: "")
+        with(holder.binding) {
+            breedCard.setOnClickListener {
+                val action = BreedsListFragmentDirections.actionBreedInfo(
+                    breed.image?.url ?: "",
+                    breed.name,
+                    breed.description ?: "",
+                    String.format("%s (%s)", breed.origin, breed.country_code),
+                    breed.temperament ?: "",
+                    breed.wikipedia_url ?: "")
 
-            val extras = FragmentNavigatorExtras(
-                holder.binding.imgBreed to "catImage"
-            )
+                val extras = FragmentNavigatorExtras(
+                    imgBreed to "catImage"
+                )
 
-            holder.binding.breedCard.findNavController().navigate(action, extras)
+                breedCard.findNavController().navigate(action, extras)
+            }
         }
     }
 

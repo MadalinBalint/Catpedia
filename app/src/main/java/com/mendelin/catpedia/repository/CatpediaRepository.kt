@@ -4,7 +4,7 @@ import android.content.Context
 import com.mendelin.catpedia.repository.remote.CatpediaRemoteApiService
 import javax.inject.Inject
 
-class CatBreedsRepository @Inject constructor(private val remoteService: CatpediaRemoteApiService) {
+class CatpediaRepository @Inject constructor(private val remoteService: CatpediaRemoteApiService) {
 
     fun getCatBreeds() = remoteService.getCatBreeds()
 

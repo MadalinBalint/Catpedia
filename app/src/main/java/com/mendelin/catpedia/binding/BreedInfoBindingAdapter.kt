@@ -9,7 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
 @BindingAdapter("catImage")
-/* Binding adapter for the cat image in breeds list */
+/* Binding adapter for the cat image in breed info */
 fun bindCatImage(imgView: ImageView, imageUrl: String?) {
     imageUrl?.let {
         val circularProgressDrawable = CircularProgressDrawable(imgView.context)
