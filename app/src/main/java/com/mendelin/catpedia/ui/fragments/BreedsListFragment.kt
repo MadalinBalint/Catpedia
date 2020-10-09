@@ -37,11 +37,7 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentBreedsListBinding.inflate(inflater, container, false)
         return binding.root
     }

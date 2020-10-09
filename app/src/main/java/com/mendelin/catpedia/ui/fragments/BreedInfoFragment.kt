@@ -26,11 +26,7 @@ class BreedInfoFragment : DaggerFragment(R.layout.fragment_breed_info) {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = BreedInfoBinding.inflate(inflater, container, false)
         binding.args = args
         return binding.root

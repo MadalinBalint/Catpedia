@@ -57,14 +57,11 @@ class MainActivity : DaggerAppCompatActivity(), ActivityCallback {
         })
 
         binding.btnLogout.setOnClickListener {
+            val context = this@MainActivity
             AlertBox().apply {
                 setPositiveButtonListener { _, _ ->
                     UserPreferences.logOutUser()
-
-                    val intent = Intent(this, WelcomeScreenActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
-                    finish()
+                    loadWelcomeScreen()
                 }
 
                 setNegativeButtonListener { dialog, _ ->
@@ -72,11 +69,11 @@ class MainActivity : DaggerAppCompatActivity(), ActivityCallback {
                 }
 
                 showAlert(
-                    this,
-                    getString(R.string.alert_warning),
-                    getString(R.string.alert_logout),
-                    getString(R.string.alert_ok),
-                    getString(R.string.alert_cancel)
+                    context,
+                    context.getString(R.string.alert_warning),
+                    context.getString(R.string.alert_logout),
+                    context.getString(R.string.alert_ok),
+                    context.getString(R.string.alert_cancel)
                 )
             }
         }
@@ -87,6 +84,13 @@ class MainActivity : DaggerAppCompatActivity(), ActivityCallback {
             android.R.id.home -> onBackPressed()
         }
         return true
+    }
+
+    private fun loadWelcomeScreen() {
+        val intent = Intent(this, WelcomeScreenActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+        finish()
     }
 
     override fun showSearchBar(isShown: Boolean) {

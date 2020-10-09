@@ -84,8 +84,8 @@ class WelcomeScreenActivity : DaggerAppCompatActivity() {
             viewModel.loginUser(this, name, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { reponse ->
-                        val user = reponse.data
+                    { response ->
+                        val user = response.data
                         if (user != null) {
                             UserPreferences.logInUser(user)
                             loadMainScreen()
