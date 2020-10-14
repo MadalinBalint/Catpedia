@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mendelin.catpedia.models.BreedInfoResponse
-import com.mendelin.catpedia.repository.CatpediaRepository
+import com.mendelin.catpedia.repository.remote.CatpediaRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.*

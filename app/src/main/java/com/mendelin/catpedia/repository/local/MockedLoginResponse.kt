@@ -3,6 +3,7 @@ package com.mendelin.catpedia.repository.local
 import android.content.Context
 import com.mendelin.catpedia.BuildConfig
 import com.mendelin.catpedia.models.LoginResponse
+import com.mendelin.catpedia.repository.storage.JsonStorage
 import javax.inject.Inject
 
 class MockedLoginResponse @Inject constructor(private val storage: JsonStorage) {

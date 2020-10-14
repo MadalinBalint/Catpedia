@@ -1,7 +1,7 @@
 package com.mendelin.catpedia.di.welcome_screen
 
-import com.mendelin.catpedia.repository.local.JsonStorage
 import com.mendelin.catpedia.repository.local.MockedLoginResponse
+import com.mendelin.catpedia.repository.storage.JsonStorage
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides

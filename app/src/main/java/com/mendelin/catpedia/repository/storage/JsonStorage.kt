@@ -1,4 +1,4 @@
-package com.mendelin.catpedia.repository.local
+package com.mendelin.catpedia.repository.storage
 
 import android.content.Context
 import com.mendelin.catpedia.R
