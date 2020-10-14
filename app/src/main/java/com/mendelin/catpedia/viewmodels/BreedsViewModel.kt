@@ -51,21 +51,28 @@ class BreedsViewModel @Inject constructor(
     fun getErrorFilter(): LiveData<String> = error
     fun getLoadingObservable(): LiveData<Boolean> = isLoading
 
-    fun filter(query: String?) {
-        query?.let {
-            if (query.isNotEmpty()) {
-                val filteredList = originalBreedList.filter {
-                    it.origin?.toLowerCase(Locale.ROOT) == query.toLowerCase(Locale.ROOT) ||
-                            it.origin?.toLowerCase(Locale.ROOT)
-                                ?.indexOf(query.toLowerCase(Locale.ROOT))!! >= 0
-                }
-
-                if (filteredList.isEmpty()) {
-                    error.postValue("The country '${query}' for the cat's origin doesn't exist in our list.")
-                } else
-                    breedsList.postValue(ArrayList(filteredList))
+    fun updateListOnQuery(query: String?) {
+        if (!query.isNullOrEmpty()) {
+            val filteredList = getFilteredList(query)
+            if (filteredList.isEmpty()) {
+                error.postValue("The country '${query}' for the cat's origin doesn't exist in our list.")
             } else
-                breedsList.postValue(originalBreedList)
+                breedsList.postValue(ArrayList(filteredList))
+        } else
+            breedsList.postValue(originalBreedList)
+    }
+
+    private fun canFilter(query: String, breed: String): Boolean {
+        return breed.toLowerCase(Locale.ROOT) == query.toLowerCase(Locale.ROOT) ||
+                breed.toLowerCase(Locale.ROOT).indexOf(query.toLowerCase(Locale.ROOT)) >= 0
+    }
+
+    private fun getFilteredList(query: String): List<BreedInfoResponse> {
+        return originalBreedList.filter {
+            if (it.origin != null) {
+                canFilter(query, it.origin)
+            } else
+                false
         }
     }
 

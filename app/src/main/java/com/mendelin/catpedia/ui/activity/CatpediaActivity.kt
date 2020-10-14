@@ -44,13 +44,13 @@ class MainActivity : DaggerAppCompatActivity(), ActivityCallback {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                breedsViewModel.filter(query?.trim() ?: "")
+                breedsViewModel.updateListOnQuery(query?.trim() ?: "")
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText?.isEmpty() == true) {
-                    breedsViewModel.filter("")
+                    breedsViewModel.updateListOnQuery("")
                 }
                 return false
             }
