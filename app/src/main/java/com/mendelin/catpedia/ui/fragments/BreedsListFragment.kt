@@ -75,17 +75,7 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
     }
 
     private fun observeViewModel() {
-        viewModel.getLoadingObservable().observe(viewLifecycleOwner, {
-            if (it) {
-                binding.progressBreedsList.visibility = View.VISIBLE
-                binding.recyclerBreeds.visibility = View.GONE
-                activityCallback?.showSearchBar(false)
-            } else {
-                binding.progressBreedsList.visibility = View.GONE
-                binding.recyclerBreeds.visibility = View.VISIBLE
-                activityCallback?.showSearchBar(true)
-            }
-        })
+        viewModel.getLoadingObservable().observe(viewLifecycleOwner, ::setLoadingProgress)
 
         viewModel.getBreedsList()
             .observe(viewLifecycleOwner, { list ->
@@ -99,6 +89,12 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
                     viewModel.onErrorHandled()
                 }
             })
+    }
+
+    private fun setLoadingProgress(status: Boolean) {
+        binding.progressBreedsList.visibility = if (status) View.VISIBLE else View.GONE
+        binding.recyclerBreeds.visibility = if (status) View.GONE else View.VISIBLE
+        activityCallback?.showSearchBar(status)
     }
 
     private fun showErrorAlert(context: Context, msg: String) {
