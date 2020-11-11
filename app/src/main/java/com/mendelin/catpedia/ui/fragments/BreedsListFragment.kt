@@ -51,7 +51,7 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activityCallback?.showSearchBar(false)
+        activityCallback?.showSearchBar(true)
 
         binding.recyclerBreeds.apply {
             adapter = breedsAdapter
@@ -94,7 +94,7 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
     private fun setLoadingProgress(status: Boolean) {
         binding.progressBreedsList.visibility = if (status) View.VISIBLE else View.GONE
         binding.recyclerBreeds.visibility = if (status) View.GONE else View.VISIBLE
-        activityCallback?.showSearchBar(status)
+        activityCallback?.showSearchBar(!status)
     }
 
     private fun showErrorAlert(context: Context, msg: String) {
