@@ -63,7 +63,7 @@ class BreedsViewModel @Inject constructor(
     }
 
     private fun canFilter(query: String, breed: String): Boolean {
-        return breed.toLowerCase(Locale.ROOT) == query.toLowerCase(Locale.ROOT) ||
+        return breed.equals(query, ignoreCase = true) ||
                 breed.toLowerCase(Locale.ROOT).indexOf(query.toLowerCase(Locale.ROOT)) >= 0
     }
 
