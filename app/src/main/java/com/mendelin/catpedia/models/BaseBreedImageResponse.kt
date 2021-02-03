@@ -6,8 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Keep
-data class BreedImageResponse(
-    val breeds: List<BaseBreedInfoResponse>,
+data class BaseBreedImageResponse(
     val id: String,
     val width: Int,
     val height: Int,

@@ -13,14 +13,15 @@ class CatpediaRepository @Inject constructor(private val service: CatpediaApiSer
         return service.getListOfCatBreeds()
             .subscribeOn(Schedulers.io())
             .flatMapIterable { it }
-            .flatMapSingle { breed ->
+            /*.flatMapSingle { breed ->
                 getBreedImage(breed.id)
                     .map { imageList -> breed.image = imageList?.firstOrNull() }
                     .flatMap { Single.just(breed) }
-            }
+
+            }*/
             .toList()
     }
 
-    private fun getBreedImage(breedId: String): Single<List<BreedImageResponse>> =
-        service.getBreedImage(breedId)
+    /*private fun getBreedImage(breedId: String): Single<List<BreedImageResponse>> =
+        service.getBreedImage(breedId)*/
 }

@@ -2,14 +2,13 @@ package com.mendelin.catpedia.repository.storage
 
 import android.content.Context
 import androidx.annotation.Keep
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
+import com.google.gson.Gson
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
 
 @Keep
-class BaseLocalStorage<T>(private val moshi: Moshi, private val id: Int, private val classOfT: Class<T>) {
+class BaseLocalStorage<T>(private val gson: Gson, private val id: Int, private val classOfT: Class<T>) {
     private fun readTextFile(inputStream: InputStream): String {
         val outputStream = ByteArrayOutputStream()
 
@@ -31,7 +30,6 @@ class BaseLocalStorage<T>(private val moshi: Moshi, private val id: Int, private
         val file = context.resources.openRawResource(id)
         val strData = readTextFile(file)
 
-        val adapter: JsonAdapter<T> = moshi.adapter(classOfT)
-        return adapter.fromJson(strData)
+        return gson.fromJson(strData, classOfT)
     }
 }

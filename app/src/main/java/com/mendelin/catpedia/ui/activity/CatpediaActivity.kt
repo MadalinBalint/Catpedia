@@ -7,7 +7,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import com.mendelin.catpedia.R
-import com.mendelin.catpedia.databinding.ActivityMainBinding
+import com.mendelin.catpedia.databinding.ActivityCatpediaBinding
 import com.mendelin.catpedia.di.viewmodels.ViewModelProviderFactory
 import com.mendelin.catpedia.preferences.UserPreferences
 import com.mendelin.catpedia.ui.custom_views.AlertBox
@@ -16,19 +16,19 @@ import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 
-class MainActivity : DaggerAppCompatActivity(), ActivityCallback {
+class CatpediaActivity : DaggerAppCompatActivity(), ActivityCallback {
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityCatpediaBinding
 
     private val breedsViewModel: BreedsViewModel by viewModels { providerFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityCatpediaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
@@ -57,7 +57,7 @@ class MainActivity : DaggerAppCompatActivity(), ActivityCallback {
         })
 
         binding.btnLogout.setOnClickListener {
-            val context = this@MainActivity
+            val context = this@CatpediaActivity
             AlertBox().apply {
                 setPositiveButtonListener { _, _ ->
                     UserPreferences.logOutUser()
@@ -68,13 +68,7 @@ class MainActivity : DaggerAppCompatActivity(), ActivityCallback {
                     dialog.dismiss()
                 }
 
-                showAlert(
-                    context,
-                    context.getString(R.string.alert_warning),
-                    context.getString(R.string.alert_logout),
-                    context.getString(R.string.alert_ok),
-                    context.getString(R.string.alert_cancel)
-                )
+                showAlert(context, context.getString(R.string.alert_warning), context.getString(R.string.alert_logout), context.getString(R.string.alert_ok), context.getString(R.string.alert_cancel))
             }
         }
     }

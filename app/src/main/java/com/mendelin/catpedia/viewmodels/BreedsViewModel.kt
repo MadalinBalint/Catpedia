@@ -7,6 +7,7 @@ import com.mendelin.catpedia.models.BreedInfoResponse
 import com.mendelin.catpedia.repository.remote.CatpediaRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -70,7 +71,7 @@ class BreedsViewModel @Inject constructor(
     private fun getFilteredList(query: String): List<BreedInfoResponse> {
         return originalBreedList.filter {
             if (it.origin != null) {
-                canFilter(query, it.origin)
+                canFilter(query, it.origin!!)
             } else
                 false
         }
