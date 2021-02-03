@@ -48,7 +48,7 @@ class BreedsAdapter : ListAdapter<BreedInfoResponse, BreedsAdapter.BreedInfoResp
             breedCard.setOnClickListener {
                 val action = BreedsListFragmentDirections.actionBreedInfo(
                     breed.image?.url ?: "",
-                    breed.name,
+                    breed.name ?: "",
                     breed.description ?: "",
                     String.format("%s (%s)", breed.origin, breed.country_code),
                     breed.temperament ?: "",
