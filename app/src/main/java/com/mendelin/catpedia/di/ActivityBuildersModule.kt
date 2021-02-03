@@ -7,7 +7,7 @@ import com.mendelin.catpedia.di.main.MainViewModelsModule
 import com.mendelin.catpedia.di.welcome_screen.WelcomeScreenModule
 import com.mendelin.catpedia.di.welcome_screen.WelcomeScreenScope
 import com.mendelin.catpedia.di.welcome_screen.WelcomeScreenViewModelsModule
-import com.mendelin.catpedia.ui.activity.MainActivity
+import com.mendelin.catpedia.ui.activity.CatpediaActivity
 import com.mendelin.catpedia.ui.activity.WelcomeScreenActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -33,5 +33,5 @@ abstract class ActivityBuildersModule {
             MainModule::class
         ]
     )
-    abstract fun contributeMainActivity(): MainActivity
+    abstract fun contributeMainActivity(): CatpediaActivity
 }

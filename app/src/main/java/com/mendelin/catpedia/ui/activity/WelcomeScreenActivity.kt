@@ -17,7 +17,8 @@ import com.mendelin.catpedia.viewmodels.LoginViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -44,7 +45,8 @@ class WelcomeScreenActivity : DaggerAppCompatActivity() {
         binding.userPreferences = UserPreferences
 
         if (UserPreferences.userIsLogged) {
-            GlobalScope.launch {
+            val scope = CoroutineScope(Dispatchers.Main.immediate)
+            scope.launch {
                 delay(SPLASH_TIME_OUT)
                 loadMainScreen()
             }
@@ -99,7 +101,7 @@ class WelcomeScreenActivity : DaggerAppCompatActivity() {
     }
 
     private fun loadMainScreen() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, CatpediaActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
         finish()
@@ -111,13 +113,7 @@ class WelcomeScreenActivity : DaggerAppCompatActivity() {
                 dialog.dismiss()
             }
 
-            showAlert(
-                context,
-                context.getString(R.string.alert_error),
-                msg,
-                context.getString(R.string.alert_ok),
-                null
-            )
+            showAlert(context, context.getString(R.string.alert_error), msg, context.getString(R.string.alert_ok), null)
         }
     }
 
