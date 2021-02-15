@@ -1,7 +1,7 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    id 'kotlin-parcelize'
+    id "kotlin-parcelize"
     id "androidx.navigation.safeargs.kotlin"
     id "kotlin-kapt" // Required for annotation processing.
 }
@@ -93,8 +93,14 @@ dependencies {
     /* Testing */
     implementation fileTree(dir: "libs", include: ["*.aar", "*.jar"], exclude: [])
     testImplementation "junit:junit:4.13.1"
+    testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation "androidx.test:core:1.3.0"
+    testImplementation "androidx.test.ext:junit-ktx:1.1.2"
+
     androidTestImplementation "androidx.test:core:1.3.0"
     androidTestImplementation "androidx.test:runner:1.3.0"
+    androidTestImplementation "androidx.test:rules:1.3.0"
+    androidTestImplementation "androidx.test.ext:junit:1.1.2"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 
