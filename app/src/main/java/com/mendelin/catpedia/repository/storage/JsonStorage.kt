@@ -6,7 +6,7 @@ import com.mendelin.catpedia.R
 import com.mendelin.catpedia.models.LoginResponse
 import javax.inject.Inject
 
-class JsonStorage @Inject constructor(val gson: Gson) {
+open class JsonStorage @Inject constructor(val gson: Gson) {
     fun getSuccessfulLoginData(context: Context) =
         BaseLocalStorage(gson, R.raw.login_success, LoginResponse::class.java).readData(context)
 
