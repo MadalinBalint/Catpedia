@@ -1,7 +1,6 @@
 package com.mendelin.catpedia.di
 
 import android.app.Application
-import android.content.Context
 import com.mendelin.catpedia.CatpediaApplication
 import com.mendelin.catpedia.di.viewmodels.ViewModelFactoryModule
 import dagger.BindsInstance
