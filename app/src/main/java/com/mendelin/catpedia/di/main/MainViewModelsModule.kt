@@ -1,8 +1,8 @@
 package com.mendelin.catpedia.di.main
 
 import androidx.lifecycle.ViewModel
-import com.mendelin.catpedia.viewmodels.BreedsViewModel
 import com.mendelin.catpedia.di.viewmodels.ViewModelKey
+import com.mendelin.catpedia.viewmodels.BreedsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

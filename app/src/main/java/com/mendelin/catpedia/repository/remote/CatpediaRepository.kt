@@ -1,12 +1,12 @@
 package com.mendelin.catpedia.repository.remote
 
-import com.mendelin.catpedia.models.BreedImageResponse
 import com.mendelin.catpedia.models.BreedInfoResponse
 import com.mendelin.catpedia.networking.CatpediaApiService
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
+/* The code is commented because in the mean time the REST API updated its response models */
 class CatpediaRepository @Inject constructor(private val service: CatpediaApiService) {
 
     fun getCatBreeds(): Single<List<BreedInfoResponse>> {

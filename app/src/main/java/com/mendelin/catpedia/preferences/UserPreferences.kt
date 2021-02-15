@@ -3,7 +3,6 @@ package com.mendelin.catpedia.preferences
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Base64
 import androidx.core.content.edit
 import com.mendelin.catpedia.models.UserObject
 

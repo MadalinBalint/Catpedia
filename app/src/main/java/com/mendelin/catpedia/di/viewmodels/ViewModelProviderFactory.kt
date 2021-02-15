@@ -13,7 +13,7 @@ class ViewModelProviderFactory @Inject constructor(
             modelClass.isAssignableFrom(it.key)
         }?.value ?: throw IllegalArgumentException("unknown model class $modelClass")
 
-        // return the Provider
+        /* Return the Provider */
         try {
             return creator.get() as T
         } catch (e: Exception) {

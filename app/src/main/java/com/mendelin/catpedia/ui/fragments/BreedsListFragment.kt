@@ -103,13 +103,7 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
                 dialog.dismiss()
             }
 
-            showAlert(
-                context,
-                context.getString(R.string.alert_error),
-                msg,
-                context.getString(R.string.alert_ok),
-                null
-            )
+            showAlert(context, context.getString(R.string.alert_error), msg, context.getString(R.string.alert_ok), null)
         }
     }
 }
