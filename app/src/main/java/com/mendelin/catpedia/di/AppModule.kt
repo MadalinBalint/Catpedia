@@ -7,7 +7,9 @@ import com.mendelin.catpedia.networking.CatpediaApiService
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
+import okhttp3.MediaType
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -53,6 +55,13 @@ class AppModule {
                         } finally {
                             tryCount++
                         }
+                    }
+
+                    /* Intercept empty body response */
+                    if (response.body()?.contentLength() == 0L) {
+                        val contentType: MediaType? = response.body()!!.contentType()
+                        val body: ResponseBody = ResponseBody.create(contentType, "{}")
+                        return@Interceptor response.newBuilder().body(body).build()
                     }
 
                     return@Interceptor response
