@@ -1,18 +1,17 @@
-package com.mendelin.catpedia.repository.local
+package com.mendelin.catpedia
 
-import android.content.Context
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.GsonBuilder
-import com.mendelin.catpedia.BuildConfig
+import com.mendelin.catpedia.repository.local.LoginRepository
+import com.mendelin.catpedia.repository.local.MockedLoginResponse
 import com.mendelin.catpedia.repository.storage.JsonStorage
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.mock
-import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 class LoginRepositoryTest {
-    /* System under test */
     lateinit var repository: LoginRepository
 
     @Before
@@ -27,7 +26,7 @@ class LoginRepositoryTest {
 
     @Test
     fun mockedUserLogin_correctCredentials_returnsResponse() {
-        val context = mock(Context::class.java)
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
 
         val testObserver = repository
             .mockedUserLogin(context, BuildConfig.MOCKED_USER_NAME, BuildConfig.MOCKED_USER_PASSWORD)
@@ -43,7 +42,7 @@ class LoginRepositoryTest {
 
     @Test
     fun mockedUserLogin_wrongCredentials_throwsException() {
-        val context = mock(Context::class.java)
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
 
         val testObserver = repository
             .mockedUserLogin(context, "", "")
