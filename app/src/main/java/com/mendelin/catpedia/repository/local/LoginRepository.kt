@@ -5,7 +5,7 @@ import com.mendelin.catpedia.models.LoginResponse
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
-class LoginRepository @Inject constructor(
+open class LoginRepository @Inject constructor(
     private val response: MockedLoginResponse
 ) {
     fun mockedUserLogin(context: Context, name: String, password: String): Single<LoginResponse> {
