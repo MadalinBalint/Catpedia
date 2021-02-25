@@ -14,7 +14,7 @@ data class BreedInfoResponse(
     var vetstreet_url: String,
     var vcahospitals_url: String,
     var temperament: String,
-    var origin: String,
+    var origin: String?,
     var country_codes: String,
     var country_code: String,
     var description: String,
