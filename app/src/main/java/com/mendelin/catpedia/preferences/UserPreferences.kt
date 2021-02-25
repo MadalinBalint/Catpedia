@@ -1,9 +1,12 @@
 package com.mendelin.catpedia.preferences
 
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import androidx.core.content.edit
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.mendelin.catpedia.models.UserObject
 
 object UserPreferences {
@@ -14,29 +17,45 @@ object UserPreferences {
     const val USER_EMAIL = "USER_EMAIL"
     const val USER_ACCESS_TOKEN = "USER_ACCESS_TOKEN"
 
-    private var mSharedPreferences: SharedPreferences? = null
+    private var sharedPreferences: SharedPreferences? = null
 
     fun init(context: Context) {
-        if (mSharedPreferences == null) {
-            mSharedPreferences =
-                context.getSharedPreferences(context.packageName, Activity.MODE_PRIVATE)
+        if (sharedPreferences == null) {
+            val keySpec =
+                KeyGenParameterSpec.Builder(MasterKey.DEFAULT_MASTER_KEY_ALIAS, KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
+                    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                    .setKeySize(256)
+                    .build()
+
+            val masterKeyAlias = MasterKey.Builder(context)
+                .setKeyGenParameterSpec(keySpec)
+                .build()
+
+            sharedPreferences = EncryptedSharedPreferences.create(
+                context,
+                "PreferencesFilename",
+                masterKeyAlias,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
         }
     }
 
     fun write(key: String, value: String) {
-        mSharedPreferences?.edit { putString(key, value) }
+        sharedPreferences?.edit { putString(key, value) }
     }
 
     fun write(key: String, value: Boolean) {
-        mSharedPreferences?.edit { putBoolean(key, value) }
+        sharedPreferences?.edit { putBoolean(key, value) }
     }
 
     fun read(key: String, value: String): String? {
-        return mSharedPreferences?.getString(key, value)
+        return sharedPreferences?.getString(key, value)
     }
 
     fun read(key: String, value: Boolean): Boolean {
-        return mSharedPreferences?.getBoolean(key, value) ?: false
+        return sharedPreferences?.getBoolean(key, value) ?: false
     }
 
     /* The user is logged in = TRUE, else FALSE */
