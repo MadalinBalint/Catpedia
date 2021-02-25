@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.mendelin.catpedia.R
 
 @BindingAdapter("imageUrl")
 /* Binding adapter for the cat image in breeds list */
@@ -27,6 +28,7 @@ fun bindImage(imgView: ImageView, imageUrl: String?) {
             .optionalCenterCrop()
             .placeholder(circularProgressDrawable)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .error(R.drawable.ic_logo)
             .into(imgView)
     }
 }

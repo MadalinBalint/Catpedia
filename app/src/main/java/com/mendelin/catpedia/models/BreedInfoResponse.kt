@@ -9,15 +9,15 @@ import kotlinx.parcelize.Parcelize
 data class BreedInfoResponse(
     var weight: Map<String, String>,
     var id: String,
-    var name: String,
+    var name: String?,
     var cfa_url: String,
     var vetstreet_url: String,
     var vcahospitals_url: String,
-    var temperament: String,
+    var temperament: String?,
     var origin: String?,
     var country_codes: String,
     var country_code: String,
-    var description: String,
+    var description: String?,
     var life_span: String,
     var indoor: Int,
     var lap: Int,
@@ -41,8 +41,8 @@ data class BreedInfoResponse(
     var rex: Int,
     var suppressed_tail: Int,
     var short_legs: Int,
-    var wikipedia_url: String,
+    var wikipedia_url: String?,
     var hypoallergenic: Int,
     var reference_image_id: String,
-    var image: BaseBreedImageResponse
+    var image: BaseBreedImageResponse?
 ) : Parcelable
