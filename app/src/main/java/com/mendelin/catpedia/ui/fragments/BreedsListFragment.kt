@@ -78,17 +78,17 @@ class BreedsListFragment : DaggerFragment(R.layout.fragment_breeds_list) {
         viewModel.getLoadingObservable().observe(viewLifecycleOwner, ::setLoadingProgress)
 
         viewModel.getBreedsList()
-            .observe(viewLifecycleOwner, { list ->
+            .observe(viewLifecycleOwner) { list ->
                 breedsAdapter.setList(list ?: emptyList())
-            })
+            }
 
         viewModel.getErrorFilter()
-            .observe(viewLifecycleOwner, { error ->
+            .observe(viewLifecycleOwner) { error ->
                 if (error.isNotEmpty()) {
                     showErrorAlert(requireContext(), error)
                     viewModel.onErrorHandled()
                 }
-            })
+            }
     }
 
     private fun setLoadingProgress(status: Boolean) {

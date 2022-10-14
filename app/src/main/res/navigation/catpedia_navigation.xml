@@ -14,8 +14,8 @@
         <action
             android:id="@+id/action_breed_info"
             app:destination="@id/breedInfoFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
 
     </fragment>
 
